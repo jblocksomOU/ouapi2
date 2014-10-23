@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rubyzip (1.1.0)
+    test-unit (2.5.5)
+
+PLATFORMS
+  ruby
+  x64-mingw32
+
+DEPENDENCIES
+  rubyzip
+  test-unit
