@@ -27,9 +27,14 @@ module OUApi
   def self.sandbox_root
   	"#{OUApi.gem_root}/data/sandbox"
   end
+
+  def self.spec_root
+    "#{self.gem_root}/spec"
+  end
 end
 
 require 'ouapi/helpers'
+require 'ouapi/apis'
 require 'ouapi/user'
 require 'ouapi/superadmin'
 Dir["#{File.dirname(__FILE__)}/ouapi/**/*.rb"].each {|file| require file }
