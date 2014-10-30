@@ -1,0 +1,12 @@
+{
+	"html":{
+		"path":"/files/upload", 
+		"params":{"path":"/","overwrite":"false","access":"Everyone"},
+		"file":{"path":null,"name":null,"type":"text"},
+		"response":{}},
+	"binary":{
+		"path":"/files/upload",
+		"params":{"path":"/","overwrite":"false","access":"Everyone"},
+		"file":{"path":null,"name":null,"type":"text"},
+		"response":{}},
+}

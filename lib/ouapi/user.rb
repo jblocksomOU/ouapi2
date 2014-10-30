@@ -46,9 +46,9 @@ module OUApi
 		# checks if the response is 200 or not, if not then reports and aborts
 		def login_check(response)
 			if response.code == '200'
-				puts "logged in: #{response.code} - #{response.message}"
+				puts "#{response.code} - #{response.message}: Logged in"
 			else
-				puts "Failed to log in : #{response.code} - #{response.body}"
+				puts "#{response.code} - #{response.body}: Failed to log in"
 				abort #if login fails, then abort
 			end
 		end
@@ -87,7 +87,9 @@ module OUApi
 			params = set_default_params(api[:params])
 			query = hash_to_querystring(params)
 			url = "#{api[:path]}?#{query}"
-			@http.get(url)
+			response = @http.get(url)
+			puts "#{response.code} - #{response.message}: #{api[:path]} "
+			response
 		end
 		#---------------------------------------------------------------
 		
@@ -95,9 +97,50 @@ module OUApi
 		def post(api)
 			params = set_default_params(api[:params])
 			query = hash_to_querystring(params)
-			@http.post(api[:path],query)
+			response = @http.post(api[:path],query)
+			puts "#{response.code} - #{response.message}: #{api[:path]} "
+			response
 		end
 		#-----------------------------------------------------------
+
+		#---package prepares a file to be uploaded------------------------------------------
+		# Takes a hash {:path,:params,:file} 
+		# path is api url
+		# params is a api parameters for the upload
+		# file contains the path,name,type of file to be uploaded.
+		#  path - path to the file, name(optional) - use if the file is not renamed during upload, type(optional) [img,binary]- determins if the file is  binary or not, if not declared then the ext is checked. 
+		def package(api)
+			params = set_default_params(api[:params])
+			query = hash_to_querystring(params)
+			path = "#{api[:path]}?#{query}"
+
+			name = api[:file][:name] || api[:file][:path]
+			file = api[:file][:path]
+			type = api[:file][:type] || upload_type(file)
+			
+			if type == "img" || type == "binary"
+				document = File.binread(file) 
+			else 
+				document = File.read(file)
+			end
+
+			boundary = "xxxxxxxxxxxxxxx"
+			post_body = []
+			post_body << "--#{boundary}\r\n"
+			post_body << "Content-Disposition: form-data; name=\"#{name}\"; filename=\"#{File.basename(file)}\"\r\n"
+			post_body << "Content-Type: text/html\r\n"
+			post_body << "\r\n"
+			post_body <<  document
+			post_body << "\r\n--#{boundary}--\r\n"
+
+			request = Net::HTTP::Post.new(path)
+			request.body = post_body.join
+
+			request["Content-Type"] = "multipart/form-data, boundary=#{boundary}"
+			response = @http.request(request)
+			puts "#{response.code} - #{response.message}: #{api[:path]} #{name}"
+			response
+		end
 
 		#---set default params------------------------------------------
 		# Sets default params for the api request for ease of use
@@ -125,6 +168,7 @@ module OUApi
 			url = "#{api[:path]}?#{query}"
 			response = @http.get(url,cookie_hash)
 			check_cookie(response)
+			puts "#{response.code} - #{response.message}: #{api[:path]} "
 			response
 		end
 		#---------------------------------------------------------------
@@ -135,6 +179,7 @@ module OUApi
 			query = hash_to_querystring(params)
 			response = @http.post(api[:path],query,cookie_hash)
 			check_cookie(response)
+			puts "#{response.code} - #{response.message}: #{api[:path]} "
 			response
 		end
 		#-----------------------------------------------------------

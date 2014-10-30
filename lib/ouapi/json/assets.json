@@ -1,0 +1,4 @@
+{
+	"new":{"path":"/assets/new", "params":{},"response":{}},
+	"save":{"path":"/assets/save", "params":{},"response":{}}
+}

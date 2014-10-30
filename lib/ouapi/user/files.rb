@@ -1,9 +1,13 @@
 module OUApi	
- class User
+class User
  	def files
  		OUApi.files
 	end
- end
+
+	def upload(args={})
+	end
+
+end
 end
 
 #/files/upload This has to be special

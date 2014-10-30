@@ -1,10 +1,7 @@
 module OUApi	
  class User
  	def assets
-			{
-			new:{path:'/assets/new', params:{},response:{}},
-			save:{path:'/assets/save', params:{},response:{}}
-			}
+		OUApi.assets
 	end
  end
 end

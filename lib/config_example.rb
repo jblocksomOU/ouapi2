@@ -1,9 +1,7 @@
 =begin
 
-save this file as config.rb then set the values for your default and remove the comment block and this statement around the module
 module OUApi
-
-module OUApi
+  #save this file as config.rb then set the values for your default and remove the comment block.
 
   def self.default
   {
