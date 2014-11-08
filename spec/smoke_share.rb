@@ -1,15 +1,18 @@
 module Smoke_test
-shared_examples_for "Smoke_test" do |title,apis| 
+shared_examples_for "Smoke_Test" do |title,apis| 
 
 	describe "Api tests for /#{title}" do
 		apis.each do |key,value|
 
 			describe "/#{title}/#{key} api test" do
 				before :all do
-					if value["type"] == "post"
+					value[:params] = @user.prep_params(value)
+					if value[:type] == "post"
 			   			@response = @user.post(value)
+			   			puts "post"
 			   		else
 			   			@response = @user.get(value)
+			   			puts "get"
 			   		end
 				end
 

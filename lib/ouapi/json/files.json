@@ -3,15 +3,15 @@
 	"path":"/files/list",
 	"params":{"site":null,"path":"/"},
 	"response":{},
-	"type":"get",
-	"restrictions":"none"
+	"restrictions":"none",
+	"type":"get"
 	},
 "settings":{
 	"path":"/files/settings", 
 	"params":{"site":null,"path":"/_leftnav.inc"},
 	"response":{},
-	"type":"get",
-	"restrictions":"7"
+	"restrictions":"7",
+	"type":"get"
 	},	
 "copy":{
 	"path":"/files/copy",
@@ -20,14 +20,14 @@
 	"type":"post",
 	"restrictions":"4"
 	},
-"checkin":{
-	"path":"/files/checkin",
+"checkout":{
+	"path":"/files/checkout",
 	"params":{"site":null,"path":"/_leftnav.inc"},
 	"response":{},
 	"type":"post"
 	},
-"checkout":{
-	"path":"/files/checkout",
+"checkin":{
+	"path":"/files/checkin",
 	"params":{"site":null,"path":"/_leftnav.inc"},
 	"response":{},
 	"type":"post"
@@ -58,13 +58,8 @@
 	},
 "publish":{
 	"path":"/files/publish", 
-	"params":{"site":null,"path":"/","log":"true","target":"gallena","tweet":null,"wall_post":null},
+	"params":{"site":null,"path":"/_leftnav.inc","log":"true","target":null,"tweet":null,"wall_post":null},
 	"response":{},
 	"type":"post"
-	},
-"multipublish":{
-	"path":"/files/multipublish", 
-	"params":{"target":"gallena","log":null,"include_checked_out":"false","include_scheduled_publish":"false","include_pending_approval":"false","changed_only":"false","last_published":"false","include_unpublished":"false","path":["leftnav.inc","index.pcf"],"type":0,"de":null},
-	"response":{}
 	}
 }

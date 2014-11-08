@@ -5,6 +5,7 @@ require 'csv'
 require 'io/console'
 require 'zip'
 require 'rspec'
+require 'cgi'
 
 $:.unshift File.dirname(__FILE__)
 begin
@@ -20,8 +21,8 @@ module OUApi
      File.expand_path File.dirname(__FILE__).gsub("/lib","")
   end
 
-  def self.test_files_root
-    "#{OUApi.gem_root}/data/test_files"
+  def self.test_files
+    "#{OUApi.gem_root}/dev/sample"
   end
 
   def self.sandbox_root

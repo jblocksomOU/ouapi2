@@ -84,6 +84,7 @@ module OUApi
 		# Returns: The http response.
 		#---------------------------------------------------------------
 		def get(api)
+			validate_api(api)
 			params = set_default_params(api[:params])
 			query = hash_to_querystring(params)
 			url = "#{api[:path]}?#{query}"
@@ -95,6 +96,7 @@ module OUApi
 		
 		#---------------------------------------------------------------
 		def post(api)
+			validate_api(api)
 			params = set_default_params(api[:params])
 			query = hash_to_querystring(params)
 			response = @http.post(api[:path],query)
@@ -124,7 +126,7 @@ module OUApi
 				document = File.read(file)
 			end
 
-			boundary = "xxxxxxxxxxxxxxx"
+			boundary = "xx#{random_string}xx"
 			post_body = []
 			post_body << "--#{boundary}\r\n"
 			post_body << "Content-Disposition: form-data; name=\"#{name}\"; filename=\"#{File.basename(file)}\"\r\n"
@@ -140,6 +142,16 @@ module OUApi
 			response = @http.request(request)
 			puts "#{response.code} - #{response.message}: #{api[:path]} #{name}"
 			response
+		end
+
+		def upload_type(file)
+			ext = File.extname(file)
+			non_binary = %w[.pcf .tcf .tmpl .xml .php .txt .asp .aspx .html]
+			if non_binary.include?(ext)
+				return "non_binary"
+			else
+				return "binary"
+			end
 		end
 
 		#---set default params------------------------------------------
@@ -215,6 +227,10 @@ module OUApi
 			{ 'Cookie' => @cookies.to_s }
 		end
 		#---------------------------------------------------------------
+
+		def validate_api(api)
+			api[:path] ? "" : abort("path required")
+		end
 #===========================================================
 	end#end class
 
