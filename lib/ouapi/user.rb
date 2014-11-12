@@ -1,8 +1,7 @@
 module OUApi	
  	class User
- 		include Helpers #see /lib/ouapi/helpers.rb
  		attr_reader :host,:skin,:account,:site,:username,:token
-
+ 		include OUApi #see /lib/ouapi/helpers.rb
 		def initialize(args={})	
 
 			#inital parameters
@@ -160,7 +159,7 @@ module OUApi
 		# The default values are the values that were used to initalize the api session
 		# Returns: Altered hash of the given parameters
 		def set_default_params(params)
-			params[:authorization_token] = params[:authorization_token] || @token
+			params[:authorization_token] = @token
 			params[:account] = params[:account] || @account
 			params[:site] = params[:site] || @site
 			params

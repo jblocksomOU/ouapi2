@@ -35,7 +35,8 @@ module OUApi
 end
 
 require 'ouapi/helpers'
-require 'ouapi/apis'
+require 'ouapi/user_apis'
+require 'ouapi/superadmin_apis'
 require 'ouapi/user'
 require 'ouapi/superadmin'
 Dir["#{File.dirname(__FILE__)}/ouapi/**/*.rb"].each {|file| require file }

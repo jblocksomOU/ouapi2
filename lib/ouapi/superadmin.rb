@@ -1,6 +1,6 @@
 module OUApi	
  	class Superadmin
- 		include Helpers #see /lib/ouapi/helpers.rb
+ 		include OUApi #allows direct access to OUApi methods
  		attr_reader :host,:skin,:username
 
 		def initialize(args={},default_login=false)	

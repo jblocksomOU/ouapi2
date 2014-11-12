@@ -1,48 +1,63 @@
 module OUApi
-module Helpers	
 
-#--hash to query string----------------------------------------
-		# Turns a hash to a url query string to be used with @http
-		# Takes: hash of values
-		# Returns: a url query string of the values
-		# e.g. {one:"one",two:"two"}  => one=one&two=two
-		def hash_to_querystring(params) #Hash to Query String
-    		  res = ""
-          params = escape_hash(params) 
-      		params.each { |key,val|
-        		if val.kind_of?(Array)
-          			val.each {|v|
-            			res << "#{key}=#{v}&"
-         			}
-        		else
-          		res << "#{key}=#{val}&"
-        	end        
-      		}
-      		res
-		end
-#---------------------------------------------------------------
-
-    def random_string(len = 10)
+#=== Basic Helper Methods=============
+  #---Random String------------------------
+  #-- Produces a random string of a-zA-Z characters, defaults to a length of 10
+  #-- len (optional) - a postive number representing the length of the string 
+  def random_string(len = 10)
         o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
         string = (0...len).map { o[rand(o.length)] }.join
-    end
+  end
+  #----------------------------------------
 
-    def json_to_hash(response)
-      JSON.parse(response,:symbolize_names => true)
-    end
+  #--- json to hash------------------------
+  #-- Takes a json string and returns a symbolic hash
+  #-- json - a json formatted string
+  def json_to_hash(json)
+   JSON.parse(json,:symbolize_names => true)
+  end
+  #----------------------------------------
 
-#---Methods to help with testing--------------------------------
-    def prep_params(api)
-      api[:params].each { |key, value| 
-        if value == "random"
-          api[:params][key] = random_string
-        end
-      }
-    end
+  #-----------------------------------------------
+  #-- Opens a json file and greats a symbolic hash
+  #-- path - This is the path to the json file. 
+  #-----------------------------------------------
+  def self.open_json_as_hash(path)
+      @json = File.read(path)
+      JSON.parse(@json,:symbolize_names => true)
+  end
 
-    def escape_hash(hash_values) 
+#=====================================
+
+#=== Network Helper Methods ============
+  #--hash to query string----------------------------------------
+	# Turns a hash to a url query string to be used with @http
+	# Takes: hash of values
+  # Encodes the values for the url string
+	# Returns: a url query string of the values
+	# e.g. {one:"one",two:"two"}  => one=one&two=two
+	def hash_to_querystring(params) #Hash to Query String
+  	  res = ""
+      params = escape_hash(params) 
+   		params.each { |key,val|
+     		if val.kind_of?(Array)
+       			val.each {|v|
+         			res << "#{key}=#{v}&"
+       			}
+     		else
+        		res << "#{key}=#{val}&"
+       	end        
+    	}
+    	res
+		end
+  #---------------------------------------------------------------
+  
+  #--- escape hash values-----------------------------------------
+  #-- Takes a hash and converts the values to the URL encoded forms
+  #-- hash - a non-embeded hash 
+  def escape_hash(hash) 
     encoded_hash = {}
-    hash_values.each do |key,value|
+    hash.each do |key,value|
         if value.class == String #non string values can be passed into the parameters. The encoding only needs to be performed on Sting objects. 
           value = CGI::escape value
         end
@@ -50,6 +65,33 @@ module Helpers
      end
     encoded_hash
   end
+  #----------------------------------------------------------------
 
-end#end Helpers
+#=================================================
+
+
+#=== API helpers =================================
+  
+  #--------------------------------------------------------
+  #-- This is method to be used for testing
+  #-- The takes the target api (api), and merges it with the test data (data)
+  #-- api - a single enitiy from one of the api sets
+  #-- data - test data. :params is required for the data set. Use {} to test the default case. It will merge any other added params.
+  #---------------------------------------------------------
+  def self.prep_test(api,data)
+      tests = {}
+      data.each do |key,value|
+        tests[key] = api.clone
+        value.each do |key2,value2|
+          if key2 == :params
+             tests[key][:params] = tests[key][:params].merge(value[:params])
+          else
+            tests[key][key2] = value2
+          end
+      end
+      end
+      tests
+  end
+#============================================================
+
 end#OUAPI

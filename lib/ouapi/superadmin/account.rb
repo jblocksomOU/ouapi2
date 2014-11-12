@@ -1,6 +1,6 @@
 module OUApi	
-class User
- 	def files
+class Superadmin
+ 	def account
  		OUApi.files
 	end
 end
