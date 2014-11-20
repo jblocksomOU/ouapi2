@@ -42,9 +42,9 @@ module OUApi
 		# checks if the response is 200 or not, if not then reports and aborts
 		def login_check(response)
 			if response.code == '200'
-				puts "logged in: #{response.code} - #{response.message}"
+				puts "#{response.code} - #{response.message} : Logged in"
 			else
-				puts "Failed to log in : #{response.code} - #{response.body}"
+				puts "#{response.code} - #{response.body} : Failed to log in"
 				abort #if login fails, then abort
 			end
 		end
@@ -79,19 +79,21 @@ module OUApi
 		# Note: Adding the cookie method for situations where the cookie might be needed.
 		# Returns: The http response.
 		#---------------------------------------------------------------
-		def get(path,params={})
-			query = hash_to_querystring(params)
-			url = "#{path}?#{query}"
+		def get(args)
+			query = hash_to_querystring(args[:params])
+			url = "#{args[:path]}?#{query}"
 			response = @http.get(url,cookie_hash)
+			puts "#{response.code} - #{response.message}: #{args[:path]} "
 			check_cookie(response)
 			response
 		end
 		#---------------------------------------------------------------
 		
 		#---------------------------------------------------------------
-		def post(path,params)
-			query = hash_to_querystring(params)
-			response = @http.post(path,query,cookie_hash)
+		def post(args)
+			query = hash_to_querystring(args[:params])
+			response = @http.post(args[:path],query,cookie_hash)
+			puts "#{response.code} - #{response.message}: #{args[:path]} "
 			check_cookie(response)
 			response
 		end
@@ -106,6 +108,15 @@ module OUApi
         		end
 		end
 		#---------------------------------------------------------------
+
+		#--- Generic Create Call------------------------------
+		def create(api,params)
+			query = api
+			query[:params].merge!(params)
+			post(query)
+		end
+		#-----------------------------------------------------
+
 #===========================================================
 
 #==Post/Get Helpers=========================================

@@ -1,7 +1,7 @@
 module OUApi	
  	class User
  		attr_reader :host,:skin,:account,:site,:username,:token
- 		include OUApi #see /lib/ouapi/helpers.rb
+ 		include OUApi #see /lib/ouapi.rb
 		def initialize(args={})	
 
 			#inital parameters
@@ -13,7 +13,6 @@ module OUApi
 	        @password = args[:password] || OUApi.default[:password]
 	        @cookie = ""
 	        @token = ""
-	        puts @http
 	        @http  = Net::HTTP.new(@host)
 	        
 	        #login, get/set token
@@ -21,8 +20,7 @@ module OUApi
 	      	set_token # once login is confirmed, then set the cookie for the session
 		end
 
-#===login methods===========================================
-		
+#===login methods===========================================		
 		#----Login--------------------------------------------------
 		# Makes a request to /authentication/whoami to recieve a cookie
 		# Checks if the host is valid, if not reports and aborts
@@ -68,6 +66,7 @@ module OUApi
 	# Sets the token to the class variable #token
 	# Returns the token string
 	def set_token
+		@http.get("/gadgets/list?account=#{@account}",{'Cookie' => @cookies.to_s})#needed for the case of new user. The list has to be initialized before it can be accessed.
 		response = @http.get("/gadgets/list?context=sidebar&active=true&account=#{@account}",{'Cookie' => @cookies.to_s})
 		gadgets = JSON.parse(response.body)
 		token = gadgets.first["token"]
@@ -111,6 +110,7 @@ module OUApi
 		# file contains the path,name,type of file to be uploaded.
 		#  path - path to the file, name(optional) - use if the file is not renamed during upload, type(optional) [img,binary]- determins if the file is  binary or not, if not declared then the ext is checked. 
 		def package(api)
+			puts api
 			params = set_default_params(api[:params])
 			query = hash_to_querystring(params)
 			path = "#{api[:path]}?#{query}"
@@ -118,8 +118,9 @@ module OUApi
 			name = api[:file][:name] || api[:file][:path]
 			file = api[:file][:path]
 			type = api[:file][:type] || upload_type(file)
+			content_type = api[:file][:content_type] || "text/html"
 			
-			if type == "img" || type == "binary"
+			if (type == "img" || type == "binary")
 				document = File.binread(file) 
 			else 
 				document = File.read(file)
@@ -129,7 +130,7 @@ module OUApi
 			post_body = []
 			post_body << "--#{boundary}\r\n"
 			post_body << "Content-Disposition: form-data; name=\"#{name}\"; filename=\"#{File.basename(file)}\"\r\n"
-			post_body << "Content-Type: text/html\r\n"
+			post_body << "Content-Type: #{content_type}\r\n"
 			post_body << "\r\n"
 			post_body <<  document
 			post_body << "\r\n--#{boundary}--\r\n"
@@ -142,6 +143,7 @@ module OUApi
 			puts "#{response.code} - #{response.message}: #{api[:path]} #{name}"
 			response
 		end
+		#------------------------------------------------------------------------
 
 		def upload_type(file)
 			ext = File.extname(file)
@@ -165,6 +167,22 @@ module OUApi
 			params
 		end
 		#---------------------------------------------------------------
+
+		#--- Create-------------------------------------------
+		def create(api,params)
+			query = api
+			query[:params].merge!(params)
+			post(query)
+		end
+		#-----------------------------------------------------
+
+		#--- Read---------------------------------------------
+		def read(api,params)
+			query = api
+			query[:params].merge!(params)
+			get(query)
+		end
+		#-----------------------------------------------------
 #===========================================================
 
 #=== get and post methods with cookie ========================================

@@ -70,6 +70,8 @@ module OUApi
 	end
 	#-------------------------------------------
 
+	#--- Save the gallery params, and updates the gallery info---
+	#-- This does not currently works, but it should work. 
 	def save_gallery_image(args)
 		sleep 2
 		image_id = args[:image_id]
@@ -87,15 +89,25 @@ module OUApi
         gallery_save[:params].merge!(params)
         post(gallery_save)
     end
+    #-----------------------------------------------------------
 
-    def add_gallery_image(asset_id,args)
-			params = args[:params]
+    #-- Upload image--------------------------------------------
+    #--- uploads an image to the target gallery-----------------
+    #--- takes an asset id, and 
+    def add_gallery_image(asset_id,image_data)
+			
+			params = {}
 			params[:asset] = asset_id
-			image = args[:image]
+			image = image_data[:image]			
+			
+			#upload the image
 			response = upload_gallery_image(params:params,image:image)
+			
 			img = json_to_hash(response.body)
 			img_id = img[:image]
 			params[:image_id] = img_id
+
+			#save the parameters
 			save_gallery_image(params)
     end
 
