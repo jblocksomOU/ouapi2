@@ -43,6 +43,7 @@ module OUApi
 		asset_id = asset[:asset]
 		
 		add_gallery_images(asset_id,images)
+		response
 	end
 	#-----------------------------------------
 
@@ -74,7 +75,7 @@ module OUApi
 	#-- This does not currently works, but it should work. 
 	def save_gallery_image(args)
 		sleep 2
-		image_id = args[:image_id]
+		image_id = args[:image_id] || "asset id required"
 		asset = args[:asset]
 		title = args[:title] || ""
 		description = args[:description] || ""
@@ -84,7 +85,7 @@ module OUApi
 		gallery_save = assets[:gallery_save]
 		params = {
             asset:asset,
-            images:"{'#{args[:image_id]}':{'title':'#{args[:title]}','description':'#{args[:description]}','caption':'#{args[:caption]}','link':'#{args[:link]}'}}"
+            images:'{"'+image_id+'":{"title":"'+title+'","description":"'+description+'","caption":"'+caption+'","link":"'+link+'"}}'
         }
         gallery_save[:params].merge!(params)
         post(gallery_save)
@@ -106,6 +107,7 @@ module OUApi
 			img = json_to_hash(response.body)
 			img_id = img[:image]
 			params[:image_id] = img_id
+			params.merge!(image_data[:params])
 
 			#save the parameters
 			save_gallery_image(params)

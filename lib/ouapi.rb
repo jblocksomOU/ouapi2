@@ -39,4 +39,5 @@ require 'ouapi/user_apis'
 require 'ouapi/superadmin_apis'
 require 'ouapi/user'
 require 'ouapi/superadmin'
+require 'ouapi/sandbox'
 Dir["#{File.dirname(__FILE__)}/ouapi/**/*.rb"].each {|file| require file }

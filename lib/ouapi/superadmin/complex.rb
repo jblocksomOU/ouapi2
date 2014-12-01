@@ -12,7 +12,7 @@ class Superadmin
 		account_name = body[:account]
 
 		site[:account] = account_name
-		create_site(site)
+		response = create_site(site)
 
 		user[:account] = account_name
 		create_user(user)

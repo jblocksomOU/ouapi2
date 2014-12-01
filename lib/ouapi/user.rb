@@ -1,6 +1,6 @@
 module OUApi	
  	class User
- 		attr_reader :host,:skin,:account,:site,:username,:token
+ 		attr_reader :host,:skin,:account,:site,:username,:token,:password
  		include OUApi #see /lib/ouapi.rb
 		def initialize(args={})	
 
@@ -44,12 +44,18 @@ module OUApi
 		def login_check(response)
 			if response.code == '200'
 				puts "#{response.code} - #{response.message}: Logged in"
+				puts "site: #{api_location}"
+				puts "with: #{username}"
 			else
 				puts "#{response.code} - #{response.body}: Failed to log in"
 				abort #if login fails, then abort
 			end
 		end
 		#-----------------------------------------------------------
+
+		def api_location
+			"#{host}/10/##{skin}/#{account}/#{site}"
+		end
 #=================================================================
 
 #==== authenication methods=======================================
@@ -110,7 +116,6 @@ module OUApi
 		# file contains the path,name,type of file to be uploaded.
 		#  path - path to the file, name(optional) - use if the file is not renamed during upload, type(optional) [img,binary]- determins if the file is  binary or not, if not declared then the ext is checked. 
 		def package(api)
-			puts api
 			params = set_default_params(api[:params])
 			query = hash_to_querystring(params)
 			path = "#{api[:path]}?#{query}"
@@ -121,7 +126,7 @@ module OUApi
 			content_type = api[:file][:content_type] || "text/html"
 			
 			if (type == "img" || type == "binary")
-				document = File.binread(file) 
+				document = File.binread(file)
 			else 
 				document = File.read(file)
 			end
@@ -163,7 +168,11 @@ module OUApi
 		def set_default_params(params)
 			params[:authorization_token] = @token
 			params[:account] = params[:account] || @account
-			params[:site] = params[:site] || @site
+			if params[:site] == "ignore"
+				params.delete(:site)
+			else
+				params[:site] = params[:site] || @site
+			end
 			params
 		end
 		#---------------------------------------------------------------
@@ -212,6 +221,48 @@ module OUApi
 			response
 		end
 		#-----------------------------------------------------------
+
+		#---package prepares a file to be uploaded------------------------------------------
+		# Takes a hash {:path,:params,:file} 
+		# path is api url
+		# params is a api parameters for the upload
+		# file contains the path,name,type of file to be uploaded.
+		#  path - path to the file, name(optional) - use if the file is not renamed during upload, type(optional) [img,binary]- determins if the file is  binary or not, if not declared then the ext is checked. 
+		def package_w_cookie(api)
+			params = set_default_params(api[:params])
+			query = hash_to_querystring(params)
+			path = "#{api[:path]}?#{query}"
+
+			name = api[:file][:name] || api[:file][:path]
+			file = api[:file][:path]
+			type = api[:file][:type] || upload_type(file)
+			content_type = api[:file][:content_type] || "text/html"
+			
+			if (type == "img" || type == "binary")
+				document = File.binread(file)
+			else 
+				document = File.read(file)
+			end
+
+			boundary = "xx#{random_string}xx"
+			post_body = []
+			post_body << "--#{boundary}\r\n"
+			post_body << "Content-Disposition: form-data; name=\"#{name}\"; filename=\"#{File.basename(file)}\"\r\n"
+			post_body << "Content-Type: #{content_type}\r\n"
+			post_body << "\r\n"
+			post_body <<  document
+			post_body << "\r\n--#{boundary}--\r\n"
+
+			request = Net::HTTP::Post.new(path,cookie_hash)
+			request.body = post_body.join
+
+			request["Content-Type"] = "multipart/form-data, boundary=#{boundary}"
+			response = @http.request(request)
+			check_cookie(response)
+			puts "#{response.code} - #{response.message}: #{api[:path]} #{name}"
+			response
+		end
+		#------------------------------------------------------------------------
 
 		#---set default params with cookie------------------------------------------
 		# Sets default params for the api request for ease of use for the cookie methods

@@ -4,8 +4,8 @@
 		"params":{
 			"site":null,
 			"path":"/",
-			"overwrite":true,
-			"group":"Everyone"
+			"overwrite":"true",
+			"group":"*inherit*"
 		},
 		"file":{
 			"path":"required",
@@ -21,7 +21,7 @@
 		"params":{
 			"key":"required",
 			"site":null,
-			"ignore_root":true
+			"ignore_root":false
 		},
 		"type":"post",
 		"response":{}

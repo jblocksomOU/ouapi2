@@ -1,0 +1,32 @@
+{
+	"settings":{
+		"path":"/directories/settings",
+		"params":{
+			"site":null,
+			"path":"/"
+		},
+		"type":"get",
+		"response":{}
+		},
+	"update_settings":{
+		"path":"/directories/settings",
+		"params":{
+		"site":null,
+		"path":"/",
+		"access":"Everyone",
+		"approver":null,
+		"enforce_approver":false,
+		"publishers":null,
+		"template_group":null,
+		"extensions":null,
+		"negate_extensions":false,
+		"toolbar":null,
+		"feed":null,
+		"url_type":null,
+		"no_search":false,
+		"no_sitemap":false
+		},
+		"type":"post",
+		"response":{}
+	}
+}

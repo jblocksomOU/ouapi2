@@ -10,14 +10,14 @@
 			"ftp_root":"required",
 			"http_root":"required",
 			"name":"required",
-			"ftp_type":"0",			
+			"ftp_type":2,			
 			"authtype":"0",			
 			"umask":"0022",			
 			"ftp_home":"",			
 			"image_path":"",
-			"template_location":"1",
+			"template_location":"0",
 			"remote_template_path":"",
-			"local_template_path":"",
+			"local_template_path":"/_resources/ou/templates",
 			"available_to":"Everyone",
 			"button_type":"1",
 			"button_code":"",
@@ -53,8 +53,8 @@
 			"allow_uppercase_folders":"false",
 			"negate_binary_regex":"false",
 			"bin_mgmt":"true",
-			"use_local_templates":"false",
-			"ldp_gallery_path":""
+			"use_local_templates":"true",
+			"ldp_gallery_path":"/ldp"
 		},
 		"type":"post"
 	}

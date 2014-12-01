@@ -1,0 +1,13 @@
+{
+	"new":{
+		"path":"/templategroups/new",
+		"params":{
+			"name":"required",
+			"template":[],
+			"new_folder":"true",
+			"site":null
+			},
+		"type":"post",
+		"response":{}
+	}
+}

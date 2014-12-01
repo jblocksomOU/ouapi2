@@ -92,6 +92,16 @@ module OUApi
       end
       tests
   end
+
+  def append_ftp_value(address,ftp_type)
+    if ftp_type == 2
+      return "p:#{address}"
+    elsif ftp_type == 1
+      return "s:#{address}"
+    else
+      return address
+    end
+  end
 #============================================================
 
 end#OUAPI
