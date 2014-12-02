@@ -13,6 +13,7 @@ module OUApi
 			else
 				settings = args
 			end
+			@zip_path = args[:zip] || default_zip
 			@user = OUApi::User.new(settings)
 			args={}
 			sandbox_variables(args)		
@@ -30,7 +31,7 @@ module OUApi
 		end 
 
 		def sandbox_variables(args)
-			@zip_path = args[:zip] || default_zip
+			@zip_path = args[:zip] || @zip_path
 			@directory_settings = args[:directory_settings] || default_directory_settings
 			@feeds = args[:feeds] || default_feeds
 			@groups = args[:groups] || default_groups
