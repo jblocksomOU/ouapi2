@@ -78,7 +78,7 @@ module OUApi
   #-- api - a single enitiy from one of the api sets
   #-- data - test data. :params is required for the data set. Use {} to test the default case. It will merge any other added params.
   #---------------------------------------------------------
-  def self.prep_test(api,data)
+  def self.merge_test_with_template(api,data)
       tests = {}
       data.each do |key,value|
         tests[key] = api.clone
@@ -103,5 +103,14 @@ module OUApi
     end
   end
 #============================================================
+
+#prep test
+  def self.prep_test(parent,child,type="user")
+    api_parent = send(parent)
+    api = api_parent[:"#{child}"]#get the default data for the test
+    data = open_json_as_hash("#{OUApi.gem_root}/spec/test_data/#{type}/#{parent}/#{child}.json")#get the test data
+    tests = merge_test_with_template(api,data)#prep the data.
+  end
+
 
 end#OUAPI

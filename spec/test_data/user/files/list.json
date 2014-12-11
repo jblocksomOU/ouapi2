@@ -1,0 +1,22 @@
+{
+    "default":{
+    	"params":{},
+    	"result":"pass"
+    	},
+    "case1":{
+    	"params":{
+    		"site":"rabbit"
+    		},
+        "response":[
+            "error",
+            "code"
+            ],
+    	"result":"fail"
+    	},
+    "case2":{
+    	"params":{
+    		"path":"/_resources"
+    		},
+    	"result":"pass"
+    	}
+  }

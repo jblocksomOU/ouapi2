@@ -5,7 +5,17 @@
 		"site":null,
 		"path":"/"
 	},
-	"response":{},
+	"response":[
+		"has_create",
+		"has_upload",
+		"target",
+		"staging_path",
+		"remote_path",
+		"http_path",
+		"dm_tag",
+		"bread_crumbs",
+		"entries"
+		],
 	"restrictions":"none",
 	"type":"get"
 	},
@@ -15,7 +25,17 @@
 		"site":null,
 		"path":"/_leftnav.inc"
 	},
-	"response":{},
+	"response":[
+		"access",
+		"enforce_approver",
+		"no_search",
+		"toolbar",
+		"feed",
+		"publishers",
+		"approver",
+		"url_type",
+		"no_sitemap"
+		],
 	"restrictions":"7",
 	"type":"get"
 	},	
