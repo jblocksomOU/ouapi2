@@ -5,18 +5,18 @@
     	},
     "case1":{
     	"params":{
-    		"site":"rabbit"
-    		},
-        "response":[
-            "error",
-            "code"
-            ],
-    	"result":"fail"
-    	},
-    "case2":{
-    	"params":{
     		"path":"/_resources"
     		},
     	"result":"pass"
-    	}
+    	},
+    "error_case1":{
+        "params":{
+            "site":"rabbit"
+            },
+        "response":[ 
+            "error",
+            "code"
+            ],
+        "result":"fail"
+        }   
   }
