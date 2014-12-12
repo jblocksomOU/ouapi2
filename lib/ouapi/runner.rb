@@ -16,6 +16,7 @@ class Runner
   #thanks: http://old.rspec.info/documentation/before_and_after.html
    def spec_helper(settings)
       spec_settings = settings || {}#if settings is nil, then use the defauly values in the config file
+      userlevel = spec_settings[:userlevel] || 10
 
       RSpec.configure do |config|  
         config.before :all do
@@ -38,11 +39,12 @@ class Runner
               }
             @user = OUApi::User.new(@login_params)
           end
-  
-         config.before :each do
+      end
+       config.add_setting :userlevel, :default => userlevel,:alias_with => :userlevel
+
+       config.before :each do
             sleep 1
          end
-      end
     end
   end#end spec helper
 

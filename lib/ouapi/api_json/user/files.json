@@ -16,14 +16,14 @@
 		"bread_crumbs",
 		"entries"
 		],
-	"restrictions":"none",
+	"restrictions":-1,
 	"type":"get"
 	},
 "settings":{
 	"path":"/files/settings", 
 	"params":{
 		"site":null,
-		"path":"/_leftnav.inc"
+		"path":"/index.pcf"
 	},
 	"response":[
 		"access",
@@ -36,7 +36,7 @@
 		"url_type",
 		"no_sitemap"
 		],
-	"restrictions":"7",
+	"restrictions":-1,
 	"type":"get"
 	},	
 "copy":{
@@ -49,7 +49,7 @@
 	},
 	"response":{},
 	"type":"post",
-	"restrictions":"4"
+	"restrictions":4
 	},
 "checkout":{
 	"path":"/files/checkout",

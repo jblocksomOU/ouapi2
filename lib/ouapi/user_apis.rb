@@ -15,6 +15,8 @@ module OUApi
   @templategroups = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/templategroups.json")
   @workers = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/workers.json")
   @zipimport = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/zipimport.json")
+
+  @error = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/error.json")
   #===========================================================
 
   #===== Api access methods ==================================
@@ -63,8 +65,12 @@ module OUApi
     @workers
   end
 
-   def self.zipimport
+  def self.zipimport
     @zipimport
+  end
+  
+  def self.error
+    @error
   end
   #===========================================================
 

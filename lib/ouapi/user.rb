@@ -1,6 +1,6 @@
 module OUApi	
  	class User
- 		attr_reader :host,:skin,:account,:site,:username,:token,:password
+ 		attr_reader :host,:skin,:account,:site,:username,:userlevel,:token,:password
  		include OUApi #see /lib/ouapi.rb
 		def initialize(args={})	
 
@@ -11,6 +11,7 @@ module OUApi
 	        @site = args[:site] || OUApi.default[:site]
 	        @username = args[:username] || OUApi.default[:username]
 	        @password = args[:password] || OUApi.default[:password]
+	        @userlevel = args[:userlevel] || 10
 	        @cookie = ""
 	        @token = ""
 	        @http  = Net::HTTP.new(@host)
