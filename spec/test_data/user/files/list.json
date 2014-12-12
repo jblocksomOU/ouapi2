@@ -1,9 +1,11 @@
 {
     "default":{
+        "title":"Default case",
     	"params":{},
     	"result":"pass"
     	},
     "case1":{
+        "title":"Directory access set to None",
     	"params":{
     		"path":"/_resources"
     		},
@@ -11,6 +13,7 @@
     	"result":"pass"
     	},
     "error_case1":{
+        "title":"Sending an incorrect site parameter",
         "params":{
             "site":"rabbit"
             },
