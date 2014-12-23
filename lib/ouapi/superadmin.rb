@@ -15,7 +15,7 @@ module OUApi
 	        
 	        #login, get/set token
 	      	login #use http and a cookie to log in
-	      	#set_token #I want to use a token, but I dod not think there is a superadmin version
+	      	#set_token #I want to use a token, but I do not think there is a superadmin version
 		end
 
 #===login methods===========================================
