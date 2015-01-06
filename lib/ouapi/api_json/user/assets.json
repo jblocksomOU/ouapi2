@@ -37,6 +37,16 @@
             "type":"3",
             "asset":"required",
             "images":""
+			}
+		},
+	"list":{
+		"path":"/assets/list",
+		"params":{
+			"site":null,
+			"path":"OMNI-ASSETS",
+			"ignore_readers":"true"
+			},
+		"response":{},
+		"type":"get"
 		}
-	}
 }

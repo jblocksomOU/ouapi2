@@ -21,6 +21,18 @@ module OUApi
 	end
 	#-------------------------------------
 
+	def assets_list
+		list = assets[:list]
+		get(list)
+	end
+
+	def assets_id_by_name(name)
+		response = assets_list
+		asset_list = json_to_hash(response.body)
+		entries = asset_list[:entries]
+		id = entries.find{|item| item[:name] == name}
+	end
+
 #====================================================================
 
 
@@ -121,7 +133,9 @@ module OUApi
 #========================================================================
 
 
+
+
+
  end
 end
-
 #gallery and form assets will need special treatment

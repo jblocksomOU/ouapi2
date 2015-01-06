@@ -79,6 +79,17 @@ module OUApi
   	end
   	#---------------------------------------
 
+  	#---get uuid----------------------------
+
+  	def sites_uuid
+  		response = view_site
+    	site = json_to_hash(response.body)
+    	uuid = site[:uuid]
+    	uuid
+    end
+
+  	#---------------------------------------
+
 #======================================================================
 
 end

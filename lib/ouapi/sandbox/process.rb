@@ -1,6 +1,10 @@
 module OUApi	
 class Sandbox
 
+	def process_zip(data)
+		@user.zipimport_process(data)
+	end
+
 	def process_directory_settings(data)
 		data.each do |item|
 			@user.update_directory_settings(item)
@@ -31,7 +35,7 @@ class Sandbox
 		end
 	end
 
-	def process_templategroups(data)
+	def process_template_groups(data)
 		@user.list_templates({})#needed, the templates list has to be initialized before they can be assigned to any groups
 		data.each do |item|
 			response = @user.create_template_group(item)
@@ -54,7 +58,7 @@ class Sandbox
 
 	def process_news_items(data)
 		data.each do |item|
-			response = @user.create_template(item)
+			@user.create_template(item)
 		end
 	end
 
@@ -69,6 +73,24 @@ class Sandbox
 			response = @user.process_find_and_replace(item)
 			sleep 5
 		end
+	end
+
+	def process_publish_site(data)
+		@user.publish_site(data)
+	end
+
+	def process_replace_asset_id(data)
+		data.each do |item|
+			id = @user.assets_id_by_name(item[:name])
+			item[:rplcstr] = id
+			@user.process_find_and_replace(item)
+			sleep 5
+		end
+	end
+
+	def process_replace_uuid(data)
+		uuid = @user.sites_uuid
+		@user.process_find_and_replace({srchstr:data[:old_uuid],rplcstr:uuid,paths:["/_resources/php"]})
 	end
 
 end

@@ -28,18 +28,18 @@ module OUApi
 
 		def sandbox_variables(args)
 			items = {}
-			items[:zip] = args[:zip] || default_zip
+			items[:zip] = args[:zip]# || default_zip
 			items[:directory_settings] = args[:directory_settings]# || default_directory_settings
-			items[:feeds] = args[:feeds] || default_feeds
-			items[:users] = args[:users] || default_users
-			items[:groups] = args[:groups] || default_groups
+			items[:feeds] = args[:feeds]# || default_feeds
+			items[:users] = args[:users]# || default_users
+			items[:groups] = args[:groups]# || default_groups
 			items[:snippet_categories] = args[:snippet_categories]# || default_snippet_categories
-			items[:snippets] = args[:snippets] || dafault_snippets
+			items[:snippets] = args[:snippets]# || dafault_snippets
 			items[:template_groups] = args[:template_groups]# || default_templategroups
-			items[:assets] = args[:assets] || default_assets
-			items[:gallery] = args[:gallery] || default_gallery
-			items[:news_items] = args[:news_items] || default_news_items
-			items[:auxsites] = args[:auxsites] || default_auxsites
+			items[:assets] = args[:assets]# || default_assets
+			items[:gallery] = args[:gallery]# || default_gallery
+			items[:news_items] = args[:news_items]# || default_news_items
+			items[:auxsites] = args[:auxsites]# || default_auxsites
 			items
 		end
 
@@ -72,7 +72,7 @@ module OUApi
 			process_snippets(items[:snippets])
 
 			#9. Create template groups
-			process_templategroups(items[:template_groups])
+			process_template_groups(items[:template_groups])
 
 			#10. Assign directory varaibles
 			process_directory_settings(items[:directory_settings])
@@ -85,6 +85,16 @@ module OUApi
 
 			#13. Publish Site
 			@user.publish_site
+		end
+
+		def process_sandbox(hash)
+			hash.each do |key,value|
+				begin
+					send("process_#{key}", value)
+				rescue
+					puts "The method #{key} is not avaialble."
+				end
+			end
 		end
 
 	end
