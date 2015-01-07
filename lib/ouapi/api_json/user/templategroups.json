@@ -9,5 +9,13 @@
 			},
 		"type":"post",
 		"response":{}
+	},
+	"list":{
+		"path":"/templategroups/list",
+		"params":{
+			"site":null
+		},
+		"type":"get",
+		"response":{}
 	}
 }

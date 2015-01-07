@@ -6,6 +6,7 @@ module OUApi
   @assets = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/assets.json")
   @auxsites = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/auxsites.json")
   @directories = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/directories.json")
+  @feeditems = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/feeditems.json")
   @feeds = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/feeds.json")
   @files = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/files.json")
   @groups = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/groups.json") 
@@ -39,6 +40,10 @@ module OUApi
 
   def self.feeds
     @feeds
+  end
+
+  def self.feeditems
+    @feeditems
   end
 
   def self.groups

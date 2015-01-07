@@ -53,7 +53,7 @@ module OUApi
 		response = create_asset(params)
 		asset = json_to_hash(response.body)
 		asset_id = asset[:asset]
-		
+		sleep 4
 		add_gallery_images(asset_id,images)
 		response
 	end

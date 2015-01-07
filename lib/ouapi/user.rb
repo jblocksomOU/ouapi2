@@ -94,6 +94,7 @@ module OUApi
 			query = hash_to_querystring(params)
 			url = "#{api[:path]}?#{query}"
 			response = @http.get(url)
+			check_cookie(response)
 			puts "#{response.code} - #{response.message}: #{api[:path]} "
 			response
 		end
@@ -105,6 +106,7 @@ module OUApi
 			params = set_default_params(api[:params])
 			query = hash_to_querystring(params)
 			response = @http.post(api[:path],query)
+			check_cookie(response)
 			puts "#{response.code} - #{response.message}: #{api[:path]} "
 			response
 		end
@@ -146,6 +148,7 @@ module OUApi
 
 			request["Content-Type"] = "multipart/form-data, boundary=#{boundary}"
 			response = @http.request(request)
+			check_cookie(response)
 			puts "#{response.code} - #{response.message}: #{api[:path]} #{name}"
 			response
 		end
@@ -206,8 +209,8 @@ module OUApi
 			query = hash_to_querystring(params)
 			url = "#{api[:path]}?#{query}"
 			response = @http.get(url,cookie_hash)
-			check_cookie(response)
 			puts "#{response.code} - #{response.message}: #{api[:path]} "
+			check_cookie(response)
 			response
 		end
 		#---------------------------------------------------------------
@@ -216,9 +219,12 @@ module OUApi
 		def post_w_cookie(api)
 			params = set_default_params_w_cookie(api[:params])
 			query = hash_to_querystring(params)
+			puts api[:path]
+			puts cookie_hash
+			puts query
 			response = @http.post(api[:path],query,cookie_hash)
-			check_cookie(response)
 			puts "#{response.code} - #{response.message}: #{api[:path]} "
+			check_cookie(response)
 			response
 		end
 		#-----------------------------------------------------------
@@ -261,6 +267,7 @@ module OUApi
 			response = @http.request(request)
 			check_cookie(response)
 			puts "#{response.code} - #{response.message}: #{api[:path]} #{name}"
+			puts cookie_hash
 			response
 		end
 		#------------------------------------------------------------------------
@@ -282,6 +289,7 @@ module OUApi
 		def check_cookie(response)
 			   if response.get_fields('set-cookie')
         			set_cookie(response)
+        			puts "new cookie"
         			puts response.get_fields('set-cookie')
         		end
 		end

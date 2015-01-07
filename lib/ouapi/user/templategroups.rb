@@ -17,6 +17,14 @@ module OUApi
 		post(new_group)
 	end
 	#-------------------------------------
+
+	#---list------------------------------
+	def templategroup_list(params={})
+		list = templategroups[:list]
+		list[:params].merge!(params)
+		get(list)
+	end
+	#-------------------------------------
 #==================================================================
 
 end

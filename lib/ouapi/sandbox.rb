@@ -89,11 +89,13 @@ module OUApi
 
 		def process_sandbox(hash)
 			hash.each do |key,value|
-				begin
-					send("process_#{key}", value)
-				rescue
-					puts "The method #{key} is not avaialble."
-				end
+				#begin
+				#	send("process_#{key}", value)
+				#rescue
+				#	puts "The method #{key} failed"
+				#	puts "#{$!}"
+				#end
+				send("process_#{key}", value)
 			end
 		end
 

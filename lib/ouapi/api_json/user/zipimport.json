@@ -4,7 +4,7 @@
 		"params":{
 			"site":null,
 			"path":"/",
-			"overwrite":"true",
+			"overwrite":true,
 			"group":"*inherit*"
 		},
 		"file":{

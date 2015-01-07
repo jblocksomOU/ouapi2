@@ -17,6 +17,18 @@ class Sandbox
 		end
 	end
 
+	def process_feeditems(data)
+		data.each do |item|
+			@user.create_feeditem(item)
+		end
+	end
+
+	def process_users(data)
+		data.each do |item|
+			@user.create_user(item)
+		end
+	end
+
 	def process_groups(data)
 		data.each do |item|
 			@user.create_group(item)
@@ -40,13 +52,12 @@ class Sandbox
 		data.each do |item|
 			response = @user.create_template_group(item)
 		end
+		@user.templategroup_list #needed, the groups need to be initialized
 	end
 
 	def process_gallery(data)
 		data.each do |item|
 			response = @user.create_gallery(item)
-			result = json_to_hash(response.body)
-			@gallery_id = result[:asset]
 		end
 	end
 
