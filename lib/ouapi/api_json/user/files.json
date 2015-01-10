@@ -122,5 +122,17 @@
 	},
 	"response":{},
 	"type":"post"
-	}
+	},
+"multipublish":{
+	"path":"/files/multipublish",
+	"params":{
+		"log":"",
+		"path":[],
+		"type":2,
+		"site":null,
+		"de":""
+		},
+	"response":{},
+	"type":"post"
+}
 }

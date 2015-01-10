@@ -21,6 +21,25 @@
 			},
 		"response":{}
 		},
+	"new_form":{
+		"path":"/assets/new", 
+		"params":{
+			"name":"random",
+			"description":"",
+			"pass_message":"Success",
+			"fail_message":"Fail",
+			"use_database":"true",
+			"group":"Everyone",
+			"readers":"Everyone",
+			"site":null,
+			"type":4,
+			"tags":"",
+			"elements":"[]",
+			"emails":"[]"
+			},
+		"response":{},
+		"type":"post"
+		},
 	"save":{
 		"path":"/assets/save", 
 		"params":{},

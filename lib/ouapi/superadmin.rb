@@ -28,7 +28,8 @@ module OUApi
 			response = @http.get("/authentication/whoami")
 	        if(response.code == '200')
 	          set_cookie(response)
-	          login_response = @login_response = @http.post("/authentication/admin_login","username=#{@username}&password=#{@password}&skin=#{@skin}",{'Cookie' => @cookies.to_s})
+	          login_response = @http.post("/authentication/admin_login","username=#{@username}&password=#{@password}&skin=#{@skin}",{'Cookie' => @cookies.to_s})
+	          check_cookie(login_response)
 	          login_check(login_response)
 	        else
 	          puts "Error invalid host #{response.message}"

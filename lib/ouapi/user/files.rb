@@ -11,6 +11,14 @@ class User
 		get(list)
 	end
 	#-------------------------------------
+
+	#---multi-publish---------------------
+	def files_multipublish(params)
+		multi = files[:multipublish]
+		multi[:params].merge!(params)
+		post(multi)
+	end
+	#-------------------------------------
 end
 end
 

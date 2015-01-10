@@ -86,6 +86,11 @@ class Sandbox
 		end
 	end
 
+	
+	def process_publish_assets(data)
+		@user.assets_publish_all
+	end	
+
 	def process_publish_site(data)
 		@user.publish_site(data)
 	end

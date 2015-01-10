@@ -33,6 +33,17 @@ module OUApi
 		id = entries.find{|item| item[:name] == name}
 	end
 
+	def assets_publish_all
+		response = assets_list
+		asset_list = json_to_hash(response.body)
+		list = asset_list[:entries]
+		ids = []
+		list.each do |item|
+			ids << item[:permissions][:staging_path]
+		end
+		files_multipublish({path:ids})
+	end
+
 #====================================================================
 
 
@@ -133,7 +144,41 @@ module OUApi
 #========================================================================
 
 
+#========Gallery Form Methods==========================================
+=begin
+"form_email":{
+			"to":"",
+			"from":"",
+			"subject":"",
+			"body":""
+		},
+"form_text_element":{
+			"name":"singlelabel",
+			"type":"input-text",
+			"required":false,
+			"label":"single_label",
+			"default_value":"",
+			"validation":"",
+			"validation_fail":"",
+			"advanced":"",
+			"options":"[]"
+		},
+"form_options":{
+		"value":"",
+		"selected":"",
+		"text":""
+		},
+=end
 
+def create_form(params={name:random_string})
+		new_asset = assets[:new_form]
+		new_asset[:params].merge!(params)
+		puts new_asset
+		post(new_asset)
+end
+
+
+#======================================================================
 
 
  end

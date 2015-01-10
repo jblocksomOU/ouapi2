@@ -31,6 +31,7 @@ module OUApi
 	        if(response.code == '200')
 	          set_cookie(response)
 	          login_response = @http.post("/authentication/login","username=#{@username}&password=#{@password}&skin=#{@skin}&account=#{@account}",{'Cookie' => @cookies.to_s})
+	          check_cookie(login_response)
 	          login_check(login_response)
 	        else
 	          puts "Error invalid host #{response.message}"
@@ -73,8 +74,10 @@ module OUApi
 	# Sets the token to the class variable #token
 	# Returns the token string
 	def set_token
-		@http.get("/gadgets/list?account=#{@account}",{'Cookie' => @cookies.to_s})#needed for the case of new user. The list has to be initialized before it can be accessed.
-		response = @http.get("/gadgets/list?context=sidebar&active=true&account=#{@account}",{'Cookie' => @cookies.to_s})
+		response = @http.get("/gadgets/list?account=#{@account}",cookie_hash)#needed for the case of new user. The list has to be initialized before it can be accessed.
+		check_cookie(response)
+		response = @http.get("/gadgets/list?context=sidebar&active=true&account=#{@account}",cookie_hash)
+		check_cookie(response)
 		gadgets = JSON.parse(response.body)
 		token = gadgets.first["token"]
 		@token = token
@@ -219,9 +222,6 @@ module OUApi
 		def post_w_cookie(api)
 			params = set_default_params_w_cookie(api[:params])
 			query = hash_to_querystring(params)
-			puts api[:path]
-			puts cookie_hash
-			puts query
 			response = @http.post(api[:path],query,cookie_hash)
 			puts "#{response.code} - #{response.message}: #{api[:path]} "
 			check_cookie(response)
@@ -267,7 +267,6 @@ module OUApi
 			response = @http.request(request)
 			check_cookie(response)
 			puts "#{response.code} - #{response.message}: #{api[:path]} #{name}"
-			puts cookie_hash
 			response
 		end
 		#------------------------------------------------------------------------
