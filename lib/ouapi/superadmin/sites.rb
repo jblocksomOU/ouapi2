@@ -16,6 +16,7 @@ class Superadmin
 		params[:site] = params[:name]
 		new_site[:params].merge!(params)
 		new_site[:params][:address] = append_ftp_value(new_site[:params][:address],new_site[:params][:ftp_type])
+		puts new_site
 		post(new_site)
 	end
 

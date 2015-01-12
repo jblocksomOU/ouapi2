@@ -5,8 +5,8 @@ module OUApi
 
 		def initialize(args={},default_login=false)	
 			#inital parameters
-			@host = args[:host] || OUApi.default[:host] 
-	        @skin = args[:skin] || OUApi.default[:skin]
+			@host = args[:host] || "" 
+	        @skin = args[:skin] || ""
 
 	        login_options(default_login)
    

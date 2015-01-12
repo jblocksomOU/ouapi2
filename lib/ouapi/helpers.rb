@@ -41,9 +41,13 @@ module OUApi
       params = escape_hash(params) 
    		params.each { |key,val|
      		if val.kind_of?(Array)
-       			val.each {|v|
-         			res << "#{key}=#{v}&"
-       			}
+       			if "#{key}" == "elements" || "#{key}" == "emails" #forms use a different format
+              res << "#{key}=#{JSON.generate(val)}&" 
+            else
+              val.each {|v|
+         			  res << "#{key}=#{v}&"
+       			  }      
+            end
      		else
         		res << "#{key}=#{val}&"
        	end        

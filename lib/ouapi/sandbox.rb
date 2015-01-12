@@ -8,6 +8,7 @@ module OUApi
 				@superadmin = OUApi::Superadmin.new(skin)  			
 				params = {account:args[:account],site:args[:site],user:args[:user]}
 				@superadmin.default_account(params)
+				puts args
 				settings = site_settings(args)
 			else
 				settings = args

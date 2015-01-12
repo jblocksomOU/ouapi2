@@ -5,12 +5,12 @@ module OUApi
 		def initialize(args={})	
 
 			#inital parameters
-			@host = args[:host] || OUApi.default[:host] 
-	        @skin = args[:skin] || OUApi.default[:skin]
-	        @account = args[:account] || OUApi.default[:account]
-	        @site = args[:site] || OUApi.default[:site]
-	        @username = args[:username] || OUApi.default[:username]
-	        @password = args[:password] || OUApi.default[:password]
+			@host = args[:host]
+	        @skin = args[:skin]
+	        @account = args[:account]
+	        @site = args[:site]
+	        @username = args[:username]
+	        @password = args[:password]
 	        @userlevel = args[:userlevel] || 10
 	        @cookie = ""
 	        @token = ""

@@ -8,13 +8,6 @@ require 'rspec'
 require 'cgi'
 
 $:.unshift File.dirname(__FILE__)
-begin
-  require 'config'
-rescue Exception => e 
-    puts e.message
-    puts "You need a config.rb. "
-end
-
 module OUApi
 
   def self.gem_root

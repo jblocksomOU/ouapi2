@@ -173,7 +173,7 @@ module OUApi
 def create_form(params={name:random_string})
 		new_asset = assets[:new_form]
 		new_asset[:params].merge!(params)
-		puts new_asset
+		#puts new_asset
 		post(new_asset)
 end
 
