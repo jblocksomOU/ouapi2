@@ -50,7 +50,7 @@
 		"response":{}
 	},
 	"init":{
-		"path":"sites/init",
+		"path":"/sites/init",
 		"params":{
 			"site":null
 		}
