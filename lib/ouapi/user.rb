@@ -175,11 +175,17 @@ module OUApi
 		def set_default_params(params)
 			params[:authorization_token] = @token
 			params[:account] = params[:account] || @account
+			
 			if params[:site] == "ignore"
 				params.delete(:site)
 			else
 				params[:site] = params[:site] || @site
 			end
+			
+			if params[:user] == "account" #special case for the servlet calls. The user parameter is the the account name
+				params[:user] = @account
+			end
+			
 			params
 		end
 		#---------------------------------------------------------------
