@@ -26,6 +26,14 @@ module OUApi
 	end
 	#-------------------------------------
 
+	#--- initialize site------------------
+	def initialize_site(params={})
+		init = sites[:init]
+		init[:params].merge!(params)
+		post(init)
+	end
+	#-------------------------------------
+
 	#--- find and replace ----------------
 	def find_and_replace(params)
 		findreplace = sites[:findreplace]

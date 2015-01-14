@@ -13,12 +13,11 @@ class User
 		if response.code == "200"
 			response = zipimport_extract(body[:key])
 			body = json_to_hash(response.body)
-			zipimport_wait(body[:key])
 			if response.code == "400"
 				response = zipimport_extract(body[:key])
 				body = json_to_hash(response.body)
-				zipimport_wait(body[:key])
 			end
+			zipimport_wait(body[:key])
 		else
 			puts "zip upload failed"
 			puts response.body

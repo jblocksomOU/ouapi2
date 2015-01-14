@@ -3,7 +3,7 @@ module OUApi
  		attr_reader :user
  		include OUApi #see /lib/ouapi/helpers.rb
 		def initialize(args)
-			if args[:direct_login] != true
+			if args[:superadmin] == true
 				skin = {host: args[:host],skin: args[:skin]}
 				@superadmin = OUApi::Superadmin.new(skin)  			
 				params = {account:args[:account],site:args[:site],user:args[:user]}
