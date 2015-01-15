@@ -8,6 +8,12 @@
 		"type":"get",
 		"response":{}
 	},
+	"save":{
+		"path":"/sites/save",
+		"params":{},
+		"type":"post",
+		"response":{}
+		},
 	"findreplace":{
 		"path":"/sites/findreplace",
 		"params":{

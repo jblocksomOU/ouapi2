@@ -10,15 +10,16 @@ module OUApi
   @feeds = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/feeds.json")
   @files = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/files.json")
   @groups = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/groups.json")
-  @servlet = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/servlet.json") 
   @sites = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/sites.json")
   @snippets = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/snippets.json")
   @templates = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/templates.json")
   @templategroups = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/templategroups.json")
+  @toolbars = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/toolbars.json")
   @workers = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/workers.json")
   @zipimport = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/zipimport.json")
 
   @error = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/error.json")
+  @servlet = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/servlet.json") 
   #===========================================================
 
   #===== Api access methods ==================================
@@ -69,6 +70,10 @@ module OUApi
 
   def self.templates
     @templates
+  end
+
+  def self.toolbars
+    @toolbars
   end
 
   def self.workers
