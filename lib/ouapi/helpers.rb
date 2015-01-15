@@ -27,6 +27,12 @@ module OUApi
       JSON.parse(@json,:symbolize_names => true)
   end
 
+  def self.open_csv_as_hash(path)
+    body = File.read(path)
+    csv = CSV.new(body,:headers => true, :header_converters => :symbol, :converters => :all)
+    hash = csv.to_a.map {|row| row.to_hash }
+  end
+
 #=====================================
 
 #=== Network Helper Methods ============

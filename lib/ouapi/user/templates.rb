@@ -19,7 +19,7 @@ module OUApi
 	#--------------------------------------
 
 	#--- list templates --------------------
-	def list_templates(params)
+	def list_templates(params={})
 		list = templates[:list]
 		list[:params].merge!(params)
 		get(list)
