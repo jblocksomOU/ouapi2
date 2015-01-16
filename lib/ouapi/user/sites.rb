@@ -20,12 +20,11 @@ module OUApi
 		updater[:params] = update
 
 		#stuff that is in update that is not returned by view_site. I will need to find a better approach
-		updater[:params][:authtype] = params[:authtype] || 0
-		updater[:params][:authtype] = params[:authtype] || 0
-		updater[:params][:ftp_type] = params[:ftp_type] || 0
-		updater[:params][:home_path] = params[:home_path] || "/"
-		updater[:params][:id] = @account
-		updater[:params][:template_location] = params[:template_location] || 0
+		#updater[:params][:authtype] = params[:authtype] || 0
+		#updater[:params][:ftp_type] = params[:ftp_type] || 0
+		#updater[:params][:home_path] = params[:home_path] || "/"
+		#updater[:params][:id] = @account
+		#updater[:params][:template_location] = params[:template_location] || 0
 
 		post(updater)
 	end

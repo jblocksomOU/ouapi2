@@ -15,6 +15,7 @@ module OUApi
   @templates = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/templates.json")
   @templategroups = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/templategroups.json")
   @toolbars = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/toolbars.json")
+  @users = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/users.json")
   @workers = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/workers.json")
   @zipimport = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/zipimport.json")
 
@@ -74,6 +75,10 @@ module OUApi
 
   def self.toolbars
     @toolbars
+  end
+
+  def self.users
+    @users
   end
 
   def self.workers
