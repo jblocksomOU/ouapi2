@@ -1,8 +1,17 @@
 module OUApi	
 class Sandbox
 
-	def process_zip(data)
-		@user.zipimport_process(data)
+	def process_auxsites(data)
+		data.each do |item|
+			response = @user.create_auxsite(item)
+		end
+	end
+
+	def process_create_form(data)
+		data.each do |item|
+			response = @user.create_form(item)
+    		puts response.body
+		end
 	end
 
 	def process_directory_settings(data)
@@ -23,9 +32,10 @@ class Sandbox
 		end
 	end
 
-	def process_users(data)
+	def process_findandreplace(data)
 		data.each do |item|
-			@user.create_user(item)
+			response = @user.process_find_and_replace(item)
+			sleep 5
 		end
 	end
 
@@ -72,20 +82,6 @@ class Sandbox
 			@user.create_template(item)
 		end
 	end
-
-	def process_auxsites(data)
-		data.each do |item|
-			response = @user.create_auxsite(item)
-		end
-	end
-
-	def process_findandreplace(data)
-		data.each do |item|
-			response = @user.process_find_and_replace(item)
-			sleep 5
-		end
-	end
-
 	
 	def process_publish_assets(data)
 		@user.assets_publish_all
@@ -109,12 +105,28 @@ class Sandbox
 		@user.process_find_and_replace({srchstr:data[:old_uuid],rplcstr:uuid,paths:["/_resources/php"]})
 	end
 
-	def process_create_form(data)
+	def process_users(data)
 		data.each do |item|
-			response = @user.create_form(item)
-    		puts response.body
+			@user.create_user(item)
 		end
 	end
+
+	def process_zip(data)
+		@user.zipimport_process(data)
+	end
+
+#---Workshop related items------
+	
+	def process_workshop_users(data)
+		data.each do |item|
+			if item[:password] == "local"
+				item[:password] = @user.password
+			end
+			@user.create_user(item)
+		end
+	end
+
+#-------------------------------
 
 end
 end
