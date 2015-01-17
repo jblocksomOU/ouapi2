@@ -33,6 +33,10 @@ module OUApi
     hash = csv.to_a.map {|row| row.to_hash }
   end
 
+  def self.deep_copy(hash)
+    Marshal.load(Marshal.dump(hash))
+  end
+
 #=====================================
 
 #=== Network Helper Methods ============
@@ -51,6 +55,7 @@ module OUApi
               res << "#{key}=#{JSON.generate(val)}&" 
             else
               val.each {|v|
+                v = CGI::escape v
          			  res << "#{key}=#{v}&"
        			  }      
             end

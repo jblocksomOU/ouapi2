@@ -12,9 +12,8 @@ module OUApi
 
 	#--- create asset --------------------
 	def create_toolbar(params)
-		new_tool = toolbars[:new]
+		new_tool = toolbars[:new].clone
 		new_tool[:params].merge!(params)
-		puts new_tool
 		post(new_tool)
 	end
 	#-------------------------------------

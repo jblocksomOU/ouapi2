@@ -126,13 +126,13 @@ class Sandbox
 		end
 	end
 
-	def process_workshop_fontsizesets
+	def process_workshop_fontsizesets(data)
 		data.each do |item|
-			@user.create_fonsizeset(item)
+			@user.create_fontsizeset(item)
 		end
 	end
 
-	def process_workshop_toolbars
+	def process_workshop_toolbars(data)
 		data.each do |item|
 			@user.create_toolbar(item)
 		end

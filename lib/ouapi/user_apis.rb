@@ -27,78 +27,80 @@ module OUApi
   #===== Api access methods ==================================
   #These methods are for allowing access to the api data.
   def self.assets
-    @assets
+    deep_copy(@assets)
   end
 
   def self.auxsites
-    @auxsites
+    deep_copy(@auxsites)
   end
 
   def self.directories
-    @directories
+   deep_copy(@directories)
   end
 
   def self.files
-    @files
+    deep_copy(@files)
   end
 
   def self.feeds
-    @feeds
+    deep_copy(@feeds)
   end
 
   def self.feeditems
-    @feeditems
+    deep_copy(@feeditems)
   end
 
   def self.fontsizesets
-    @fontsizesets
+    deep_copy(@fontsizesets)
   end
 
   def self.groups
-    @groups
+    deep_copy(@groups)
   end
 
   def self.servlet
-    @servlet
+    deep_copy(@servlet)
   end
 
   def self.sites
-    @sites
+    deep_copy(@sites)
   end
 
   def self.snippets
-    @snippets
+    deep_copy(@snippets)
   end
 
   def self.templategroups
-    @templategroups
+    deep_copy(@templategroups)
   end
 
   def self.templates
-    @templates
+    deep_copy(@templates)
   end
 
   def self.toolbars
-    @toolbars
+    deep_copy(@toolbars)
   end
 
   def self.users
-    @users
+    deep_copy(@users)
   end
 
   def self.workers
-    @workers
+    deep_copy(@workers)
   end
 
   def self.zipimport
-    @zipimport
+    deep_copy(@zipimport)
   end
   
   def self.error
-    @error
+    deep_copy(@error)
   end
   #===========================================================
 
-
+ def deep_copy(hash)
+    Marshal.load(Marshal.dump(hash))
+  end
 	
 end
