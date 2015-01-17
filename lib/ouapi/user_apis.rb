@@ -9,6 +9,7 @@ module OUApi
   @feeditems = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/feeditems.json")
   @feeds = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/feeds.json")
   @files = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/files.json")
+  @fontsizesets = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/fontsizesets.json")
   @groups = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/groups.json")
   @sites = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/sites.json")
   @snippets = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/snippets.json")
@@ -47,6 +48,10 @@ module OUApi
 
   def self.feeditems
     @feeditems
+  end
+
+  def self.fontsizesets
+    @fontsizesets
   end
 
   def self.groups

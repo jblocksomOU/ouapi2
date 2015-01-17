@@ -23,7 +23,7 @@
 			"ldap_auth":"",
 			"ldap_host":"",
 			"ldap_dn":"",
-			"create_group":true,
+			"create_group":false,
 			"welcome_message":false
 			},
 		"response":{},
