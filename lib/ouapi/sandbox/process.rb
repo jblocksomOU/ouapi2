@@ -1,6 +1,12 @@
 module OUApi	
 class Sandbox
 
+	def process_addons(data)
+		data.each do |item|
+			response = @user.create_addon(item)
+		end
+	end
+
 	def process_auxsites(data)
 		data.each do |item|
 			response = @user.create_auxsite(item)

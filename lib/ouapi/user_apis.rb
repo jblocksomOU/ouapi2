@@ -3,29 +3,36 @@ module OUApi
   #===== Api Set Varaibles ====================================
   #- Proccess at start up. Opens and stores the api json files varaibles to prevent a cycle of opening and closing the file. 
   #- This should be done for each api set. See /lib/ouapi/json for api json files
-  @assets = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/assets.json")
-  @auxsites = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/auxsites.json")
-  @directories = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/directories.json")
-  @feeditems = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/feeditems.json")
-  @feeds = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/feeds.json")
-  @files = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/files.json")
-  @fontsizesets = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/fontsizesets.json")
-  @groups = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/groups.json")
-  @sites = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/sites.json")
-  @snippets = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/snippets.json")
-  @templates = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/templates.json")
-  @templategroups = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/templategroups.json")
-  @toolbars = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/toolbars.json")
-  @users = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/users.json")
-  @workers = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/workers.json")
-  @zipimport = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/zipimport.json")
+  json_dir = "#{gem_root}/lib/ouapi/api_json/user"
 
+  @addons = open_json_as_hash("#{json_dir}/addons.json")
+  @assets = open_json_as_hash("#{json_dir}/assets.json")
+  @auxsites = open_json_as_hash("#{json_dir}/auxsites.json")
+  @directories = open_json_as_hash("#{json_dir}/directories.json")
+  @feeditems = open_json_as_hash("#{json_dir}/feeditems.json")
+  @feeds = open_json_as_hash("#{json_dir}/feeds.json")
+  @files = open_json_as_hash("#{json_dir}/files.json")
+  @fontsizesets = open_json_as_hash("#{json_dir}/fontsizesets.json")
+  @groups = open_json_as_hash("#{json_dir}/groups.json")
+  @sites = open_json_as_hash("#{json_dir}/sites.json")
+  @snippets = open_json_as_hash("#{json_dir}/snippets.json")
+  @templates = open_json_as_hash("#{json_dir}/templates.json")
+  @templategroups = open_json_as_hash("#{json_dir}/templategroups.json")
+  @toolbars = open_json_as_hash("#{json_dir}/toolbars.json")
+  @users = open_json_as_hash("#{json_dir}/users.json")
+  @workers = open_json_as_hash("#{json_dir}/workers.json")
+  @zipimport = open_json_as_hash("#{json_dir}/zipimport.json")
+
+  @servlet = open_json_as_hash("#{json_dir}/servlet.json") 
   @error = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/error.json")
-  @servlet = open_json_as_hash("#{gem_root}/lib/ouapi/api_json/user/servlet.json") 
   #===========================================================
 
   #===== Api access methods ==================================
   #These methods are for allowing access to the api data.
+   def self.addons
+    deep_copy(@addons)
+  end
+
   def self.assets
     deep_copy(@assets)
   end
