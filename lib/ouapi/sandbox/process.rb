@@ -3,20 +3,25 @@ class Sandbox
 
 	def process_addons(data)
 		data.each do |item|
-			response = @user.create_addon(item)
+			@user.create_addon(item)
+		end
+	end
+
+	def process_access_asset_settings(data)
+		data.each do |item|
+			@user.update_access_asset_settings(item)
 		end
 	end
 
 	def process_auxsites(data)
 		data.each do |item|
-			response = @user.create_auxsite(item)
+			@user.create_auxsite(item)
 		end
 	end
 
 	def process_create_form(data)
 		data.each do |item|
-			response = @user.create_form(item)
-    		puts response.body
+			@user.create_form(item)
 		end
 	end
 
@@ -40,8 +45,8 @@ class Sandbox
 
 	def process_findandreplace(data)
 		data.each do |item|
-			response = @user.process_find_and_replace(item)
-			sleep 5
+			@user.process_find_and_replace(item)
+			sleep 10
 		end
 	end
 
@@ -71,9 +76,21 @@ class Sandbox
 		@user.templategroup_list #needed, the groups need to be initialized
 	end
 
+	def process_fontsizesets(data)
+		data.each do |item|
+			@user.create_fontsizeset(item)
+		end
+	end
+
+	def process_toolbars(data)
+		data.each do |item|
+			@user.create_toolbar(item)
+		end
+	end
+
 	def process_gallery(data)
 		data.each do |item|
-			response = @user.create_gallery(item)
+			@user.create_gallery(item)
 		end
 	end
 
@@ -121,6 +138,8 @@ class Sandbox
 		@user.zipimport_process(data)
 	end
 
+
+
 #---Workshop related items------
 	
 	def process_workshop_users(data)
@@ -129,18 +148,6 @@ class Sandbox
 				item[:password] = @user.password
 			end
 			@user.create_user(item)
-		end
-	end
-
-	def process_workshop_fontsizesets(data)
-		data.each do |item|
-			@user.create_fontsizeset(item)
-		end
-	end
-
-	def process_workshop_toolbars(data)
-		data.each do |item|
-			@user.create_toolbar(item)
 		end
 	end
 
