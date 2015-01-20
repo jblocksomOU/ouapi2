@@ -1,0 +1,19 @@
+{
+	"new":{
+		"path":"/gadgets/new",
+		"params":{
+			"url":"required",
+			"account":null
+		},
+		"type":"post",
+		"response":{}
+	},
+	"list":{
+		"path":"/gadgets/list",
+		"params":{
+			"account":null
+		},
+		"type":"get",
+		"response":{}
+	}
+}

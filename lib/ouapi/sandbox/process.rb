@@ -118,7 +118,9 @@ class Sandbox
 		data.each do |item|
 			id = @user.assets_id_by_name(item[:name])
 			item[:rplcstr] = id[:asset]
-			@user.process_find_and_replace(item)
+			puts item
+			response = @user.process_find_and_replace(item)
+			@user.lastfindreplace
 			sleep 5
 		end
 	end
@@ -126,6 +128,7 @@ class Sandbox
 	def process_replace_uuid(data)
 		uuid = @user.sites_uuid
 		@user.process_find_and_replace({srchstr:data[:old_uuid],rplcstr:uuid,paths:["/_resources/php"]})
+		@user.lastfindreplace
 	end
 
 	def process_users(data)

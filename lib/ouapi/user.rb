@@ -77,9 +77,6 @@ module OUApi
 			@cookie
 		else
 			@cookie_array << test_cookie
-			#@cookies_array.each { | cookie |
-        	#	cookies_array.push(cookie.split('; ')[0])
-   			#}
    			@cookies = @cookie_array.join('; ')
    		end
 		#@cookies = response.get_fields('set-cookie')
@@ -323,6 +320,7 @@ module OUApi
         			set_cookie(response)
         			print "new cookie: "
         			puts response.get_fields('set-cookie')
+        			puts @cookie
         		end
 		end
 		#---------------------------------------------------------------

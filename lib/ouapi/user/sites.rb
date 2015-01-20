@@ -84,6 +84,7 @@ module OUApi
 			puts result[:status]
 			finished = result[:finished]
 		end
+		response
 	end
 	#-------------------------------------
 
@@ -106,6 +107,14 @@ module OUApi
       #returning a stringify version of the string to work correctly with the OUApi.hast_to_query() method
   	end
   	#---------------------------------------
+
+  	#---last-find-replace-------------------
+  	def lastfindreplace
+  		last = sites[:lastfindreplace]
+		get(last)
+  	end
+
+  	#----------------------------------------
 
   	#---get uuid----------------------------
   	def sites_uuid

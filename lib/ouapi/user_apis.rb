@@ -13,6 +13,7 @@ module OUApi
   @feeds = open_json_as_hash("#{json_dir}/feeds.json")
   @files = open_json_as_hash("#{json_dir}/files.json")
   @fontsizesets = open_json_as_hash("#{json_dir}/fontsizesets.json")
+  @gadgets = open_json_as_hash("#{json_dir}/gadgets.json")
   @groups = open_json_as_hash("#{json_dir}/groups.json")
   @sites = open_json_as_hash("#{json_dir}/sites.json")
   @snippets = open_json_as_hash("#{json_dir}/snippets.json")
@@ -59,6 +60,10 @@ module OUApi
 
   def self.fontsizesets
     deep_copy(@fontsizesets)
+  end
+
+  def self.gadgets
+    deep_copy(@gadgets)
   end
 
   def self.groups

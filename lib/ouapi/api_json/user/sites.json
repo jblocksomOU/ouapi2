@@ -38,6 +38,14 @@
 		"type":"get",
 		"response":{}
 	},
+	"lastfindreplace":{
+		"path":"/sites/lastfindreplace",
+		"params":{
+			"site":null
+			},
+		"type":"get",
+		"response":{}
+		},
 	"publish":{
 		"path":"/sites/publish",
 		"params":{
