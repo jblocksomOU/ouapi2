@@ -5,13 +5,15 @@ class User
 	end
 
 	def directory_settings(params)
-		setting = directories[:settings]
-		read(setting,params)
+		settings = directories[:settings]
+		settings[:params].merge!(params)
+		get(settings)
 	end
 
 	def access_asset_settings(params={})
-		setting = directories[:asset_settings]
-		read(setting,params)
+		settings = directories[:asset_settings]
+		settings[:params].merge!(params)
+		get(settings)
 	end
 
 	def update_directory_settings(params)

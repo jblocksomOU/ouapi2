@@ -7,7 +7,8 @@ class User
 
 	def workers_status(params)
 		status = workers[:status]
-		read(status,params)
+		status[:params].merge!(params)
+		get(status)
 	end 
 
 end

@@ -12,7 +12,7 @@ module OUApi
 	        @username = args[:username]
 	        @password = args[:password]
 	        @userlevel = args[:userlevel] || 10
-	        @cookie = ""
+	        @cookies = ""
 	        @cookie_array = []
 	        @token = ""
 	        @http  = Net::HTTP.new(@host)
@@ -74,7 +74,7 @@ module OUApi
 		test_cookie = response.get_fields('set-cookie')
 
 		if @cookie_array.include? test_cookie
-			@cookie
+			@cookies
 		else
 			@cookie_array << test_cookie
    			@cookies = @cookie_array.join('; ')
@@ -82,6 +82,18 @@ module OUApi
 		#@cookies = response.get_fields('set-cookie')
 	end
 	#--------------------------------------------------
+
+	#---- Checks if there is a new cookie, if so then update it.----
+		# Takes the response from @http, checks if the object has a cookie, if so then sets it to @cookies
+		def check_cookie(response)
+			   if response.get_fields('set-cookie')
+        			set_cookie(response)
+        			print "new cookie: "
+        			puts response.get_fields('set-cookie')
+        			puts @cookies
+        		end
+		end
+	#---------------------------------------------------------------
 
 	#---set token-------------------------------------------------------
 	# Makes a call to the /gadgets/list call, get the first item in the list, and grabs the token
@@ -313,17 +325,6 @@ module OUApi
 		end
 		#---------------------------------------------------------------
 
-		#---- Checks if there is a new cookie, if so then update it.----
-		# Takes the response from @http, checks if the object has a cookie, if so then sets it to @cookies
-		def check_cookie(response)
-			   if response.get_fields('set-cookie')
-        			set_cookie(response)
-        			print "new cookie: "
-        			puts response.get_fields('set-cookie')
-        			puts @cookie
-        		end
-		end
-		#---------------------------------------------------------------
 #===========================================================
 
 #==Post/Get Helpers=========================================

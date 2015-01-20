@@ -3,7 +3,7 @@
 		"path":"/snippets/addcategory",
 		"params":{
 			"category":"snippet",
-			"site":"gallena"
+			"site":null
 		},
 		"type":"post",
 		"response":{}
