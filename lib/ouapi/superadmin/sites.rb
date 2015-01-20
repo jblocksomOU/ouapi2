@@ -18,16 +18,6 @@ class Superadmin
 		new_site[:params][:address] = append_ftp_value(new_site[:params][:address],new_site[:params][:ftp_type])
 		post(new_site)
 	end
-
-	def append_ftp_value(address,ftp_type)
-		if ftp_type == 2
-			return "p:#{address}"
-		elsif ftp_type == 1
-			return "s:#{address}"
-		else
-			return address
-		end
-	end
 	#-------------------------------------
 end
 end

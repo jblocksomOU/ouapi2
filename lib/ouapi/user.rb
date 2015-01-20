@@ -13,6 +13,7 @@ module OUApi
 	        @password = args[:password]
 	        @userlevel = args[:userlevel] || 10
 	        @cookie = ""
+	        @cookie_array = []
 	        @token = ""
 	        @http  = Net::HTTP.new(@host)
 	        
@@ -30,9 +31,14 @@ module OUApi
 			response = @http.get("/authentication/whoami")
 	        if(response.code == '200')
 	          set_cookie(response)
+	          puts ""
+	          puts "--------"
+	          puts "login"
 	          login_response = @http.post("/authentication/login","username=#{@username}&password=#{@password}&skin=#{@skin}&account=#{@account}",{'Cookie' => @cookies.to_s})
 	          check_cookie(login_response)
 	          login_check(login_response)
+	          puts "--------"
+	          puts ""
 	        else
 	          puts "Error invalid host #{response.message}"
 	          abort #if the login site is invalid, then abort
@@ -65,7 +71,18 @@ module OUApi
 	# Gets the cookie from the response and sets it.
 	# The cookie is set to the class varaible @cookies 
 	def set_cookie(response)
-		@cookies = response.get_fields('set-cookie')
+		test_cookie = response.get_fields('set-cookie')
+
+		if @cookie_array.include? test_cookie
+			@cookie
+		else
+			@cookie_array << test_cookie
+			#@cookies_array.each { | cookie |
+        	#	cookies_array.push(cookie.split('; ')[0])
+   			#}
+   			@cookies = @cookie_array.join('; ')
+   		end
+		#@cookies = response.get_fields('set-cookie')
 	end
 	#--------------------------------------------------
 
@@ -74,10 +91,20 @@ module OUApi
 	# Sets the token to the class variable #token
 	# Returns the token string
 	def set_token
+		sleep 2
+		puts "---------"
+		puts "initlize gadgets list"
 		response = @http.get("/gadgets/list?account=#{@account}",cookie_hash)#needed for the case of new user. The list has to be initialized before it can be accessed.
 		check_cookie(response)
-		response = @http.get("/gadgets/list?context=sidebar&active=true&account=#{@account}",cookie_hash)
-		check_cookie(response)
+		puts "---------"
+		sleep 2
+		puts ""
+		puts "---------"
+		puts "get token"
+		response2 = @http.get("/gadgets/list?context=sidebar&active=true&account=#{@account}",cookie_hash)
+		check_cookie(response2)
+		puts "------"
+		puts ""
 		gadgets = JSON.parse(response.body)
 		token = gadgets.first["token"]
 		@token = token
@@ -294,7 +321,7 @@ module OUApi
 		def check_cookie(response)
 			   if response.get_fields('set-cookie')
         			set_cookie(response)
-        			puts "new cookie"
+        			print "new cookie: "
         			puts response.get_fields('set-cookie')
         		end
 		end

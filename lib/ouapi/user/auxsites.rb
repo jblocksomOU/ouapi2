@@ -14,7 +14,7 @@ module OUApi
 	def create_auxsite(params)
 		new_auxsite = auxsites[:new]
 		new_auxsite[:params].merge!(params)
-		new_auxsite[:params][:address] = append_ftp_value(new_auxsite[:params][:address],new_auxsite[:params][:ftp_type])
+		new_auxsite[:params][:address] = append_ftp_value(new_auxsite[:params][:address],new_auxsite[:params][:ftp_type]) #appends the ftp marker
 		post(new_auxsite)
 	end
 	#-------------------------------------

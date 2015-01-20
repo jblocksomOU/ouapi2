@@ -141,7 +141,6 @@ class Sandbox
 
 
 #---Workshop related items------
-	
 	def process_workshop_users(data)
 		data.each do |item|
 			if item[:password] == "local"
@@ -150,7 +149,6 @@ class Sandbox
 			@user.create_user(item)
 		end
 	end
-
 #-------------------------------
 
 end

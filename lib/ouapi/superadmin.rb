@@ -11,6 +11,7 @@ module OUApi
 	        login_options(default_login)
    
 	        @cookie = ""
+	        @cookie_array = []
 	        @http  = Net::HTTP.new(@host)
 	        
 	        #login, get/set token
@@ -68,7 +69,18 @@ module OUApi
 		# Gets the cookie from the response and sets it.
 		# The cookie is set to the class varaible @cookies 
 		def set_cookie(response)
-			@cookies = response.get_fields('set-cookie')
+			test_cookie = response.get_fields('set-cookie')
+
+			if @cookie_array.include? test_cookie
+				@cookie
+			else
+				@cookie_array << test_cookie
+				#@cookies_array.each { | cookie |
+	        	#	cookies_array.push(cookie.split('; ')[0])
+	   			#}
+	   			@cookies = @cookie_array.join('; ')
+	   		end
+			#@cookies = response.get_fields('set-cookie')
 		end
 		#--------------------------------------------------
 #=============================================================================

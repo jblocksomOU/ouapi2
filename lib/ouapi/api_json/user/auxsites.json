@@ -13,7 +13,8 @@
 			"ftp_root":"required",
 			"ftp_home":"",
 			"http_root":"required",
-			"available_to":"Everyone"
+			"available_to":"Everyone",
+			"site":null
 		},
 		"type":"post",
 		"response":{}

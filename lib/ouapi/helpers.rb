@@ -109,9 +109,9 @@ module OUApi
   end
 
   def append_ftp_value(address,ftp_type)
-    if ftp_type == 2
+    if ftp_type == "2" || ftp_type == 2
       return "p:#{address}"
-    elsif ftp_type == 1
+    elsif ftp_type == "0" || ftp_type == 0
       return "s:#{address}"
     else
       return address
