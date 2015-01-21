@@ -14,14 +14,6 @@ module OUApi
      File.expand_path File.dirname(__FILE__).chomp("/lib")
   end
 
-  def self.test_files
-    "#{OUApi.gem_root}/dev/sample"
-  end
-
-  def self.sandbox_root
-  	"#{OUApi.gem_root}/data/sandbox"
-  end
-
   def self.spec_root
     "#{self.gem_root}/spec"
   end

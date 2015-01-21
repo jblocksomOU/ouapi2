@@ -2,6 +2,15 @@ module OUApi
  	class Sandbox
  		attr_reader :user
  		include OUApi #see /lib/ouapi/helpers.rb
+
+ 		#---- The Sandbox Class---------------------------
+ 		# Logs in via SuperAdmin or Regular.
+ 		# Regular Login: It will log into the target site, and does nothing else.
+ 		# requires the same hash used to initialize the User class.
+ 		#
+ 		# SuperAdmin login: It will login into superadmin (credentials entered into console), Create and account, site, and user.
+ 		# requies the hash that coorespond to the Superadmin class default_account. 
+ 		#-------------------------------------------------
 		def initialize(args)
 			if args[:superadmin] == true
 				skin = {host: args[:host],skin: args[:skin]}
@@ -14,7 +23,11 @@ module OUApi
 			end
 			@user = OUApi::User.new(settings)
 		end
+		#----------------------------------------------
 
+		#--- site settings-----------------------------
+		# Organinzes the site data into a hash usable by the User Class. Used in initialization.
+		#----------------------------------------------
 		def site_settings(args)
 			settings = {
 				host: args[:host],
@@ -25,79 +38,27 @@ module OUApi
 				site: args[:site][:name]
 			}
 		end 
+		#-----------------------------------------------
 
-		def sandbox_variables(args)
-			items = {}
-			items[:zip] = args[:zip]# || default_zip
-			items[:directory_settings] = args[:directory_settings]# || default_directory_settings
-			items[:feeds] = args[:feeds]# || default_feeds
-			items[:users] = args[:users]# || default_users
-			items[:groups] = args[:groups]# || default_groups
-			items[:snippet_categories] = args[:snippet_categories]# || default_snippet_categories
-			items[:snippets] = args[:snippets]# || dafault_snippets
-			items[:template_groups] = args[:template_groups]# || default_templategroups
-			items[:assets] = args[:assets]# || default_assets
-			items[:gallery] = args[:gallery]# || default_gallery
-			items[:news_items] = args[:news_items]# || default_news_items
-			items[:auxsites] = args[:auxsites]# || default_auxsites
-			items
-		end
 
-		def gallena_sandbox(sandbox_hash={})
-			items = sandbox_variables(sandbox_hash)		
-
-			#1. Upload the zip file
-			@user.zipimport_process(items[:zip])
-
-			#2. Create RSS feed
-			process_feeds(items[:feeds])
-
-			#3. Create Aux site
-			process_auxsites(items[:auxsites])
-
-			#4. Edit site Access
-			
-
-			#5. Create groups
-			process_groups(items[:groups])
-
-			#6. create gallery
-			process_gallery(items[:gallery])
-
-			#7. create assets
-			process_assets(items[:assets])
-
-			#8. create snippets
-			process_snippet_categories(items[:snippet_categories])
-			process_snippets(items[:snippets])
-
-			#9. Create template groups
-			process_template_groups(items[:template_groups])
-
-			#10. Assign directory varaibles
-			process_directory_settings(items[:directory_settings])
-
-			#11. Create News Items
-			process_news_items(items[:news_items])
-
-			#12. Find and Replace
-			process_findandreplace(default_findandreplace)
-
-			#13. Publish Site
-			@user.publish_site
-		end
-
+		#----process_sandbox------------------------------------
+		# Takes a hash of mostly arrays of hashes. The name corresponds to the hash key appended with "process_". 
+		# The "process_" addition is for security, so only methods with the name "proccess_" can be used. 
+		# If the key fails, or the method it calls fails, then the item will be skipped, and the process will continue.
+		# Example: {item:[{data:"data"}, another:[{test:"test"}]], in the example, the process_item method will be called, and the array [{data:"data"}] will be passed to the method. 
+		# After that process_item will be called
+		#-------------------------------------------------------
 		def process_sandbox(hash)
 			hash.each do |key,value|
-				#begin
-				#	send("process_#{key}", value)
-				#rescue
-				#	puts "The method #{key} failed"
-				#	puts "#{$!}"
-				#end
-				send("process_#{key}", value)
+				begin
+					send("process_#{key}", value)
+				rescue
+					puts "The method #{key} failed"
+					puts "#{$!}"
+				end
 			end
 		end
+		#--------------------------------------------------------
 
 	end
 end

@@ -100,19 +100,16 @@ module OUApi
 	# Sets the token to the class variable #token
 	# Returns the token string
 	def set_token
-		sleep 2
 		puts "---------"
-		puts "initlize gadgets list"
 		response = @http.get("/gadgets/list?account=#{@account}",cookie_hash)#needed for the case of new user. The list has to be initialized before it can be accessed.
 		check_cookie(response)
 		puts "---------"
 		sleep 2
 		puts ""
 		puts "---------"
-		puts "get token"
 		response2 = @http.get("/gadgets/list?context=sidebar&active=true&account=#{@account}",cookie_hash)
 		check_cookie(response2)
-		puts "------"
+		puts "---------"
 		puts ""
 		gadgets = JSON.parse(response.body)
 		token = gadgets.first["token"]
