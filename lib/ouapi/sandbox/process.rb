@@ -36,6 +36,16 @@ class Sandbox
 		end
 	end
 
+	def process_create_site(data)
+		@user.create_site(data)
+	end
+
+	def process_create_sandbox_site(data)
+		process_create_site(data)
+		@user.change_site(data[:name])
+		sleep 5
+	end
+
 	def process_directory_settings(data)
 		data.each do |item|
 			@user.update_directory_settings(item)
@@ -83,7 +93,7 @@ class Sandbox
 		data.each do |item|
 			@user.create_template(item)
 		end
-	end	
+	end
 
 	def process_publish_assets(data)
 		@user.assets_publish_all
@@ -101,11 +111,15 @@ class Sandbox
 	def process_replace_asset_id(data)
 		data.each do |item|
 			id = @user.assets_id_by_name(item[:name])
-			item[:rplcstr] = id[:asset]
-			puts item
-			response = @user.process_find_and_replace(item)
-			@user.lastfindreplace
-			sleep 5
+			if id
+				item[:rplcstr] = id[:asset]
+				puts item
+				response = @user.process_find_and_replace(item)
+				@user.lastfindreplace
+				sleep 5
+			else
+				puts "asset name #{item[:name]} does not exist"
+			end
 		end
 	end
 	#-----------------------------------
@@ -115,7 +129,7 @@ class Sandbox
 	#-----------------------------------
 	def process_replace_uuid(data)
 		uuid = @user.sites_uuid
-		@user.process_find_and_replace({srchstr:data[:old_uuid],rplcstr:uuid,paths:["/_resources/php"]})
+		@user.process_find_and_replace({srchstr:data[:old_uuid],rplcstr:uuid,paths:["/_resources"]})
 		@user.lastfindreplace
 	end
 	#-----------------------------------
@@ -143,6 +157,15 @@ class Sandbox
 	def process_toolbars(data)
 		data.each do |item|
 			@user.create_toolbar(item)
+		end
+	end
+
+	def process_upload_to_production(data)
+		data.each do |item|
+			if item[:params][:target] == "production"
+				item[:params][:target] = @user.site
+			end		
+			@user.files_upload(item)
 		end
 	end
 

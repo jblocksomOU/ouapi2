@@ -32,13 +32,12 @@ module OUApi
 	        if(response.code == '200')
 	          set_cookie(response)
 	          puts ""
-	          puts "--------"
+	          puts "================"
 	          puts "login"
 	          login_response = @http.post("/authentication/login","username=#{@username}&password=#{@password}&skin=#{@skin}&account=#{@account}",{'Cookie' => @cookies.to_s})
 	          check_cookie(login_response)
 	          login_check(login_response)
 	          puts "--------"
-	          puts ""
 	        else
 	          puts "Error invalid host #{response.message}"
 	          abort #if the login site is invalid, then abort
@@ -63,6 +62,10 @@ module OUApi
 
 		def api_location
 			"#{host}/10/##{skin}/#{account}/#{site}"
+		end
+
+		def change_site(site)
+			@site = site
 		end
 #=================================================================
 
@@ -102,15 +105,14 @@ module OUApi
 	def set_token
 		puts "---------"
 		response = @http.get("/gadgets/list?account=#{@account}",cookie_hash)#needed for the case of new user. The list has to be initialized before it can be accessed.
+		puts "#{response.code} - #{response.message}: /gadgets/list"
 		check_cookie(response)
-		puts "---------"
 		sleep 2
-		puts ""
-		puts "---------"
+		puts "get token"
 		response2 = @http.get("/gadgets/list?context=sidebar&active=true&account=#{@account}",cookie_hash)
+		puts "#{response2.code} - #{response2.message}: /gadgets/list?context=sidebar"
 		check_cookie(response2)
 		puts "---------"
-		puts ""
 		gadgets = JSON.parse(response.body)
 		token = gadgets.first["token"]
 		@token = token
@@ -130,8 +132,9 @@ module OUApi
 			query = hash_to_querystring(params)
 			url = "#{api[:path]}?#{query}"
 			response = @http.get(url)
-			check_cookie(response)
 			puts "#{response.code} - #{response.message}: #{api[:path]} "
+			check_cookie(response)
+			report_error(response)
 			response
 		end
 		#---------------------------------------------------------------
@@ -142,8 +145,9 @@ module OUApi
 			params = set_default_params(api[:params])
 			query = hash_to_querystring(params)
 			response = @http.post(api[:path],query)
-			check_cookie(response)
 			puts "#{response.code} - #{response.message}: #{api[:path]} "
+			check_cookie(response)
+			report_error(response)
 			response
 		end
 		#-----------------------------------------------------------
@@ -184,8 +188,9 @@ module OUApi
 
 			request["Content-Type"] = "multipart/form-data, boundary=#{boundary}"
 			response = @http.request(request)
-			check_cookie(response)
 			puts "#{response.code} - #{response.message}: #{api[:path]} #{name}"
+			check_cookie(response)
+			report_error(response)
 			response
 		end
 		#------------------------------------------------------------------------
@@ -222,22 +227,6 @@ module OUApi
 			params
 		end
 		#---------------------------------------------------------------
-
-		#--- Create-------------------------------------------
-		def create(api,params)
-			query = api
-			query[:params].merge!(params)
-			post(query)
-		end
-		#-----------------------------------------------------
-
-		#--- Read---------------------------------------------
-		def read(api,params)
-			query = api
-			query[:params].merge!(params)
-			get(query)
-		end
-		#-----------------------------------------------------
 #===========================================================
 
 #=== get and post methods with cookie ========================================
@@ -253,6 +242,7 @@ module OUApi
 			response = @http.get(url,cookie_hash)
 			puts "#{response.code} - #{response.message}: #{api[:path]} "
 			check_cookie(response)
+			report_error(response)
 			response
 		end
 		#---------------------------------------------------------------
@@ -264,6 +254,7 @@ module OUApi
 			response = @http.post(api[:path],query,cookie_hash)
 			puts "#{response.code} - #{response.message}: #{api[:path]} "
 			check_cookie(response)
+			report_error(response)
 			response
 		end
 		#-----------------------------------------------------------
@@ -290,7 +281,7 @@ module OUApi
 				document = File.read(file)
 			end
 
-			boundary = "xx#{random_string}xx"
+			boundary = "xx#{OUApi.random_string}xx"
 			post_body = []
 			post_body << "--#{boundary}\r\n"
 			post_body << "Content-Disposition: form-data; name=\"#{name}\"; filename=\"#{File.basename(file)}\"\r\n"
@@ -304,8 +295,9 @@ module OUApi
 
 			request["Content-Type"] = "multipart/form-data, boundary=#{boundary}"
 			response = @http.request(request)
-			check_cookie(response)
 			puts "#{response.code} - #{response.message}: #{api[:path]} #{name}"
+			check_cookie(response)
+			report_error(response)
 			response
 		end
 		#------------------------------------------------------------------------
@@ -335,6 +327,12 @@ module OUApi
 
 		def validate_api(api)
 			api[:path] ? "" : abort("path required")
+		end
+
+		def report_error(response)
+			if response.code != "200"
+				puts response.body
+			end
 		end
 #===========================================================
 	end#end class

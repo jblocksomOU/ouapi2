@@ -80,8 +80,8 @@ module OUApi
 			site:@site,
 			asset:"required",
 			image:"#{random_string}.JPG",
-			thumb_width:"10",
-			thumb_height:"10"
+			thumb_width:"100",
+			thumb_height:"100"
 		}
 		image = {
 			path:"required",
@@ -173,7 +173,6 @@ module OUApi
 def create_form(params={name:random_string})
 		new_asset = assets[:new_form]
 		new_asset[:params].merge!(params)
-		#puts new_asset
 		post(new_asset)
 end
 

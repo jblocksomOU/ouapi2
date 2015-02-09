@@ -13,8 +13,27 @@ class Superadmin
 	#-- params  - a hash of create account params. see the account api set :new
 	def create_user(params={name:random_string})
 		new_user = user[:new]
-		create(new_user,params)
+		new_user[:params].merge!(params)
+		post(new_user)
 	end
 	#-------------------------------------
+
+	def view_user(params)
+		settings = users[:view]
+		settings[:params].merge!(params)
+		get(settings)
+	end
+
+	def update_user(params)
+		response = view_user(params)
+		previous = json_to_hash(response.body)
+		update = previous.merge(params)
+		
+		updater = users[:save]
+		updater[:params] = update
+
+		post(updater)
+	end
+
 end
 end

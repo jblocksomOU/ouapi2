@@ -7,14 +7,12 @@ class Superadmin
 		site = args[:site]
 		user = args[:user]
 
-		response = create_account(account)
-		body = json_to_hash(response.body)
-		account_name = body[:account]
+		create_account(account)
 
-		site[:account] = account_name
+		site[:account] = account[:name]
 		response = create_site(site)
 
-		user[:account] = account_name
+		user[:account] = account[:name]
 		create_user(user)
 	end
 	#----------------------------------

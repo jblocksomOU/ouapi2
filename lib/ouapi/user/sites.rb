@@ -30,6 +30,16 @@ module OUApi
 	end
 	#-------------------------------------
 
+	#-------------------------------------
+	def create_site(params)
+		new_site = sites[:new]
+		params[:site] = params[:name]
+		new_site[:params].merge!(params)
+		new_site[:params][:address] = append_ftp_value(new_site[:params][:address],new_site[:params][:ftp_type])
+		post(new_site)
+	end
+	#-------------------------------------
+
 	#--- view site ----------------------
 	def view_site(params={})
 		view_site = sites[:view]

@@ -54,7 +54,8 @@
 			"negate_binary_regex":"false",
 			"bin_mgmt":"true",
 			"use_local_templates":"true",
-			"ldp_gallery_path":"/ldp"
+			"ldp_gallery_path":"/ldp",
+			"show_pass":false
 		},
 		"type":"post"
 	}

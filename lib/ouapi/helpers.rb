@@ -4,8 +4,18 @@ module OUApi
   #---Random String------------------------
   #-- Produces a random string of a-zA-Z characters, defaults to a length of 10
   #-- len (optional) - a postive number representing the length of the string 
+  def self.random_string(len = 10)
+        o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+        string = (0...len).map { o[rand(o.length)] }.join
+  end
+
   def random_string(len = 10)
         o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+        string = (0...len).map { o[rand(o.length)] }.join
+  end
+
+  def self.random_string_lower(len = 5)
+        o = [('a'..'z')].map { |i| i.to_a }.flatten
         string = (0...len).map { o[rand(o.length)] }.join
   end
   #----------------------------------------

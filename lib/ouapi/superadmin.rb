@@ -5,10 +5,10 @@ module OUApi
 
 		def initialize(args={},default_login=false)	
 			#inital parameters
-			@host = args[:host] || "" 
-	        @skin = args[:skin] || ""
+			@host = args[:host]
+	        @skin = args[:skin]
 
-	        login_options(default_login)
+	        login_options(default_login, args)
    
 	        @cookie = ""
 	        @cookie_array = []
@@ -26,12 +26,15 @@ module OUApi
 		# Checks if the host is valid, if not reports and aborts
 		# Sets the cookie, and tries to log in. Sends login checking to the method login_check
 		def login
+			puts ""
+	        puts "================"
 			response = @http.get("/authentication/whoami")
 	        if(response.code == '200')
 	          set_cookie(response)
 	          login_response = @http.post("/authentication/admin_login","username=#{@username}&password=#{@password}&skin=#{@skin}",{'Cookie' => @cookies.to_s})
 	          check_cookie(login_response)
 	          login_check(login_response)
+	          puts "--------"
 	        else
 	          puts "Error invalid host #{response.message}"
 	          abort #if the login site is invalid, then abort
@@ -52,18 +55,23 @@ module OUApi
 		end
 		#-----------------------------------------------------------
 
-		def login_options(default_login)
+		#---Login options---------------------------
+		# If default login true is passed, then the user/password is expected to be in the args statment
+		#-------------------------------------------
+		def login_options(default_login,args={})
 			if default_login == true
-	        	@usernmae = args[:username] || OUApi.default[:username]
-	        	@password = args[:password] || OUApi.default[:password] 
+	        	@usernmae = args[:username]
+	        	@password = args[:password]
 	        	puts "test"
 	        else
+	        	puts "Logging into #{@host}/#{skin}"
         		puts "Enter username:"
         		@username = gets.chomp
         		puts "Enter password:"
        			@password = STDIN.noecho(&:gets).chomp
        		end
 		end
+		#---------------------------------------------
 
 		#----set cookie-------------------------------------
 		# Gets the cookie from the response and sets it.
@@ -98,6 +106,7 @@ module OUApi
 			response = @http.get(url,cookie_hash)
 			puts "#{response.code} - #{response.message}: #{args[:path]} "
 			check_cookie(response)
+			report_error(response)
 			response
 		end
 		#---------------------------------------------------------------
@@ -108,6 +117,7 @@ module OUApi
 			response = @http.post(args[:path],query,cookie_hash)
 			puts "#{response.code} - #{response.message}: #{args[:path]} "
 			check_cookie(response)
+			report_error(response)
 			response
 		end
 		#-----------------------------------------------------------
@@ -120,16 +130,7 @@ module OUApi
         			puts response.get_fields('set-cookie')
         		end
 		end
-		#---------------------------------------------------------------
-
-		#--- Generic Create Call------------------------------
-		def create(api,params)
-			query = api
-			query[:params].merge!(params)
-			post(query)
-		end
-		#-----------------------------------------------------
-
+		#--------------------------------------------------------------
 #===========================================================
 
 #==Post/Get Helpers=========================================
@@ -140,6 +141,12 @@ module OUApi
 			{ 'Cookie' => @cookies.to_s }
 		end
 		#---------------------------------------------------------------
+
+		def report_error(response)
+			if response.code != "200"
+				puts response.body
+			end
+		end
 #===========================================================
 
 	end#end class

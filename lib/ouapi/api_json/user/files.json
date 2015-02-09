@@ -134,5 +134,20 @@
 		},
 	"response":{},
 	"type":"post"
-}
+	},
+"upload":{
+	"path":"/files/upload",
+	"params":{
+		"path":"/",
+		"overwrite":false,
+		"access":"*inherit*"
+	},
+	"file":{
+			"path":"required",
+			"name":null,
+			"type":"text"
+	},
+	"response":[],
+	"type":"package"
+	}
 }
