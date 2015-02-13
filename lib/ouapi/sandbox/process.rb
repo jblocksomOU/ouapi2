@@ -134,6 +134,12 @@ class Sandbox
 	end
 	#-----------------------------------
 
+	def process_scan_site(data)
+		data.each do |item|
+			@user.scan_site(item)
+		end
+	end
+
 	def process_snippet_categories(data)
 		data.each do |item|
 			@user.create_snippet_category(item)

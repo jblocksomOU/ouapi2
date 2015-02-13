@@ -64,6 +64,14 @@ module OUApi
 	end
 	#-------------------------------------
 
+	#--- scan site------------------
+	def scan_site(params={})
+		scan = sites[:scan]
+		scan[:params].merge!(params)
+		post(scan)
+	end
+	#-------------------------------------
+
 	#--- find and replace ----------------
 	def find_and_replace(params)
 		findreplace = sites[:findreplace]

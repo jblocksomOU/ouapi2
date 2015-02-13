@@ -123,6 +123,12 @@
 		"type":"post",
 		"response":{}
 	},
+	"scan":{
+		"path":"/sites/scan",
+		"params":{
+			"site":null
+		}
+	},
 	"init":{
 		"path":"/sites/init",
 		"params":{
