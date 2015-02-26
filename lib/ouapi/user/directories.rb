@@ -23,7 +23,7 @@ class User
 		
 		updater = directories[:update_settings]
 		updater[:params] = update
-
+		puts updater
 		post(updater)
 	end
 
@@ -34,6 +34,7 @@ class User
 		
 		updater = directories[:update_access_asset_settings]
 		updater[:params].merge!(update)
+
 		post(updater)
 	end
 

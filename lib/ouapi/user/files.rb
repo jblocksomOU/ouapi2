@@ -23,8 +23,6 @@ class User
 	#---upload----------------------------
 	def files_upload(args)
 		upload = files[:upload]
-		puts upload
-		puts args
 		params = upload[:params].merge(args[:params])
 		file = upload[:file].merge(args[:file])
 		package(path:upload[:path],params:params,file:file)
