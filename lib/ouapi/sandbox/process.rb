@@ -134,6 +134,18 @@ class Sandbox
 	end
 	#-----------------------------------
 
+	#---- Replace site name for forms------------------
+	# Replace site name in the form file
+	#--------------------------------------------------
+	def process_replace_site_uuid(data)
+		search = data[:old_sitename]+" =>"
+		sitename = @user.site
+		site = "#{sitename}\" =>"
+		@user.process_find_and_replace({srchstr:search,rplcstr:site,paths:["/_resources"]})
+		@user.lastfindreplace
+	end
+	#-----------------------------------
+
 	def process_scan_site(data)
 		data.each do |item|
 			@user.scan_site(item)
