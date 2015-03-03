@@ -1,9 +1,0 @@
-{
-	"ldpregfile":{
-		"path":"/servlet/OX/ldpregfile",
-		"params":{
-			"user":"account",
-			"site":null
-		}
-	}
-}

@@ -1,8 +1,0 @@
-{
-	"default":{
-        "title":"Default case",
-    	"params":{},
-    	"result":"pass",
-    	"error_code":"forbidden"
-    }
-}
