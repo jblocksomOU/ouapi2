@@ -1,0 +1,34 @@
+{
+	"default":{
+        "title":"Default case",
+    	"params":{},
+    	"result":"pass"
+    	},
+    "case1":{
+        "title":"pcf page - Access: Everyone",
+    	"params":{
+    		"path":"/about/index.pcf"
+    		},
+        "permission":-1,
+    	"result":"pass"
+    	},
+    "case2":{
+    	"title":"pcf page - Access: None",
+    	"params":{
+			"path":"/academics/index.pcf"
+    	},
+    	"permission":-1,
+    	"result":"pass"
+    	},
+    "error case 1":{
+    	"title":"non-existent page",
+    	"params":{
+    		"path":"/idonotexist.pcf"
+    	},
+    	"response":[
+    		"error",
+    		"code"
+    	],
+    	"result":"fail"
+    }
+}
