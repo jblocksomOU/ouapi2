@@ -1,0 +1,10 @@
+dev/
+local/
+*.gem
+chromedriver.log
+.DS_Store
+*/*.DS_Store
+lib/config.rb
+test/.~ko-7.1.3-rubylint~
+lib/ouapi/user/.~ko-7.1.3-rubylint~
+dev/
