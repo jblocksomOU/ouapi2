@@ -1,8 +1,0 @@
-{
-	"status":{
-		"path":"/workers/status",
-		"params":{"key":"required"},
-		"type":"get",
-		"response":[]
-	}
-}
