@@ -47,7 +47,7 @@
 		"remote":"false",
 		"path":"/_leftnav.inc"
 	},
-	"response":{},
+	"response":[],
 	"type":"post",
 	"restrictions":4
 	},
@@ -57,7 +57,7 @@
 		"site":null,
 		"path":"/_leftnav.inc"
 	},
-	"response":{},
+	"response":[],
 	"type":"post"
 	},
 "checkin":{
@@ -66,18 +66,7 @@
 		"site":null,
 		"path":"/_leftnav.inc"
 	},
-	"response":{},
-	"type":"post"
-	},
-"copy":{
-	"path":"/files/rename",
-	"params":{
-		"site":null,
-		"path":"/_leftnav.inc",
-		"destination":"/",
-		"remote":"false"
-	},
-	"response":{},
+	"response":[],
 	"type":"post"
 	},
 "rename":{
@@ -88,16 +77,26 @@
 		"filename":"/_leftnav-1-rename.inc",
 		"remote":"false"
 	},
-	"response":{},
+	"response":[],
 	"type":"post"
 	},
 "info":{
 	"path":"/files/info", 
 	"params":{
 		"site":null,
-		"path":"/_leftnav.inc"
+		"path":"/_sidenav.inc"
 	},
-	"response":{},
+	"response":[
+		"info",
+		"properties",
+		"settings",
+		"has_multiedit_fields",
+		"fields",
+		"products",
+		"dependencies",
+		"has_broken",
+		"has_unpublished"
+	],
 	"type":"get"
 	},
 "new_folder":{
@@ -107,7 +106,7 @@
 		"name":"random",
 		"path":"/"
 	},
-	"response":{},
+	"response":[],
 	"type":"post"
 	},
 "publish":{
@@ -120,7 +119,7 @@
 		"tweet":null,
 		"wall_post":null
 	},
-	"response":{},
+	"response":[],
 	"type":"post"
 	},
 "multipublish":{
@@ -132,7 +131,7 @@
 		"site":null,
 		"de":""
 		},
-	"response":{},
+	"response":[],
 	"type":"post"
 	},
 "upload":{

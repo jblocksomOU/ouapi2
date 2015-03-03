@@ -6,7 +6,7 @@
 			"path":"/"
 		},
 		"type":"get",
-		"response":{}
+		"response":[]
 		},
 	"update_settings":{
 		"path":"/directories/settings",
@@ -27,7 +27,7 @@
 		"no_sitemap":false
 		},
 		"type":"post",
-		"response":{}
+		"response":[]
 	},
 	"asset_settings":{
 		"path":"/directories/settings",
@@ -36,7 +36,7 @@
 			"site":null
 		},
 		"type":"get",
-		"response":{}
+		"response":[]
 		},
 	"update_access_asset_settings":{
 		"path":"/directories/settings",
@@ -55,6 +55,6 @@
 			"form_group":"Everyone"
 			},
 		"type":"post",
-		"response":{}
+		"response":[]
 	}
 }

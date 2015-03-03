@@ -9,7 +9,7 @@
 			"submit":"Create"
 		},
 		"type":"post",
-		"response":{}
+		"response":[]
 		},
 	"list":{
 		"path":"/templates/list",
@@ -17,6 +17,6 @@
 			"site":null
 		},
 		"type":"get",
-		"response":{}
+		"response":[]
 	}
 }

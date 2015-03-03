@@ -5,7 +5,7 @@ module OUApi
   #- This should be done for each api set. See /lib/ouapi/json for api json files
   json_dir = "#{gem_root}/lib/ouapi/api_json/user"
 
-  @account = open_json_as_hash("#{json_dir}/account.json")
+  @accounts = open_json_as_hash("#{json_dir}/accounts.json")
   @addons = open_json_as_hash("#{json_dir}/addons.json")
   @assets = open_json_as_hash("#{json_dir}/assets.json")
   @auxsites = open_json_as_hash("#{json_dir}/auxsites.json")
@@ -31,8 +31,8 @@ module OUApi
 
   #===== Api access methods ==================================
   #These methods are for allowing access to the api data.
-  def self.account
-    deep_copy(@account)
+  def self.accounts
+    deep_copy(@accounts)
   end
 
   def self.addons

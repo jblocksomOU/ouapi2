@@ -2,7 +2,8 @@ module OUApi
 class Runner
 ### RSPEC Runner Class; Assists in Running a Suite of Rspec tests ####
 
-  def initialize(spec,settings = nil,format = "d", out_path = nil)
+  def initialize(spec,settings = nil,format = "d", out_path = nil, test_data = "/add/path/to/test/data")
+    @test_data = test_data
     spec_helper(settings)
     command = ["#{OUApi.spec_root}/#{spec}", "--format", "documentation","--format",format, "--out",out_path]
     run_spec(command)
@@ -41,6 +42,7 @@ class Runner
           end
       end
        config.add_setting :userlevel, :default => userlevel,:alias_with => :userlevel
+       config.add_setting :test_data, :default => @test_data,:alias_with => :test_data
 
        config.before :each do
             sleep 1

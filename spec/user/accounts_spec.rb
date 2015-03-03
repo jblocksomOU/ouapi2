@@ -3,8 +3,8 @@ describe OUApi do
   describe "Smoke Test" do
   load "#{OUApi.spec_root}/smoke_test.rb"  
 
-  type = "files"
-  apis = ["info","list","settings"]
+  type = "accounts"
+  apis = ["view"]
   test_data = RSpec.configuration.test_data
 
   apis.each do |api|

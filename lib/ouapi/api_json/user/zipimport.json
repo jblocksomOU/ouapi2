@@ -14,7 +14,7 @@
 			"content_type":"application/x-zip-compressed"
 		},
 		"type":"package",
-		"response":{}
+		"response":[]
 	},
 	"extract":{
 		"path":"/zipimport/extract",
@@ -24,6 +24,6 @@
 			"ignore_root":false
 		},
 		"type":"post",
-		"response":{}
+		"response":[]
 	}
 }

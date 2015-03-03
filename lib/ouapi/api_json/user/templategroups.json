@@ -8,7 +8,7 @@
 			"site":null
 			},
 		"type":"post",
-		"response":{}
+		"response":[]
 	},
 	"list":{
 		"path":"/templategroups/list",
@@ -16,6 +16,6 @@
 			"site":null
 		},
 		"type":"get",
-		"response":{}
+		"response":[]
 	}
 }

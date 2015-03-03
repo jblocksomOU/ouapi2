@@ -19,7 +19,7 @@
 			"type":1,
 			"tags":""
 			},
-		"response":{}
+		"response":[]
 		},
 	"new_form":{
 		"path":"/assets/new", 
@@ -37,7 +37,7 @@
 			"elements":"[]",
 			"emails":"[]"
 			},
-		"response":{},
+		"response":[],
 		"type":"post"
 		},
 	"save":{
@@ -65,7 +65,7 @@
 			"path":"OMNI-ASSETS",
 			"ignore_readers":"true"
 			},
-		"response":{},
+		"response":[],
 		"type":"get"
 		}
 }
