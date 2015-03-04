@@ -51,7 +51,6 @@
 			"sso_url", 
 			"state", 
 			"street", 
-			"hollar",
 			"time_zone", 
 			"zip"
 		],
