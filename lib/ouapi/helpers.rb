@@ -59,7 +59,7 @@ module OUApi
 	def hash_to_querystring(params) #Hash to Query String
   	  res = ""
       params = escape_hash(params) 
-   		params.each { |key,val|
+      params.each { |key,val|
      		if val.kind_of?(Array)
        			if "#{key}" == "elements" || "#{key}" == "emails" #forms use a different format
               res << "#{key}=#{JSON.generate(val)}&" 

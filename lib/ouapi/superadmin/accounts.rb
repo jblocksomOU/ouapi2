@@ -3,7 +3,7 @@ class Superadmin
  	
 	#---grabs the asset set from OUAPi----
  	def accounts
- 		OUApi.superadmin_account
+ 		OUApi.superadmin_accounts
 	end
 	#-------------------------------------
 

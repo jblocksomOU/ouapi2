@@ -15,7 +15,7 @@ module OUApi
 			if args[:superadmin] == true
 				skin = {host: args[:host],skin: args[:skin]}
 				@superadmin = OUApi::Superadmin.new(skin)  			
-				params = {account:args[:account],site:args[:site],user:args[:user]}
+				params = {accounts:args[:account],site:args[:site],user:args[:user]}
 				@superadmin.default_account(params)
 				settings = site_settings(args)
 			else

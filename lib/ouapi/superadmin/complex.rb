@@ -3,11 +3,11 @@ class Superadmin
  	
 	#---Create Account,Site,and User---
 	def default_account(args)
-		accounts = args[:account]
+		accounts = args[:accounts]
 		site = args[:site]
 		user = args[:user]
 
-		create_account(account)
+		create_account(accounts)
 
 		site[:account] = accounts[:name]
 		response = create_site(site)
