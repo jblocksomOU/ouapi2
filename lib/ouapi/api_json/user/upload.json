@@ -3,13 +3,13 @@
 		"path":"/files/upload", 
 		"params":{"path":"/","overwrite":"false","access":"Everyone"},
 		"file":{"path":null,"name":null,"type":"text"},
-		"response":{}
+		"response":[]
 		},
 	"binary":{
 		"path":"/files/upload",
 		"params":{"path":"/","overwrite":"false","access":"Everyone"},
 		"file":{"path":null,"name":null,"type":"text"},
-		"response":{}
+		"response":[]
 		},
 	"gallery":{
 		"path":"/assets/add_image",
@@ -25,7 +25,7 @@
 			"name":"default",
 			"type":"img"
 		},
-		"response":{}
+		"response":[]
 		},
 	}
 }

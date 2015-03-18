@@ -6,7 +6,7 @@
 			"account":null
 		},
 		"type":"post",
-		"response":{}
+		"response":[]
 	},
 	"list":{
 		"path":"/gadgets/list",
@@ -14,6 +14,6 @@
 			"account":null
 		},
 		"type":"get",
-		"response":{}
+		"response":[]
 	}
 }

@@ -11,7 +11,7 @@
 			"path":"required",
 			"publish_date":"[auto]"
 			},
-		"response":{},
+		"response":[],
 		"type":"post"
 	}
 }

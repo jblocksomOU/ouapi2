@@ -5,23 +5,23 @@ module OUApi
  	#see /lib/ouapi/json/auxsite.json for the asset api set
 
  	#---grabs the auxsite set from OUAPi----
- 	def account
+ 	def accounts
 		OUApi.account
 	end
 	#-------------------------------------
 
-	def view_account(params)
+	def view_accounts(params)
 		settings = account[:view]
 		settings[:params].merge!(params)
 		get(settings)
 	end
 
-	def update_account(params)
+	def update_accounts(params)
 		response = view_account(params)
 		previous = json_to_hash(response.body)
 		update = previous.merge(params)
 		
-		updater = account[:save]
+		updater = accounts[:save]
 		updater[:params] = update
 		post(updater)
 	end

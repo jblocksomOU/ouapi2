@@ -16,6 +16,7 @@ module OUApi
 	        @cookie_array = []
 	        @token = ""
 	        @http  = Net::HTTP.new(@host)
+	        @test_login = args[:test_login] || false
 	        
 	        #login, get/set token
 	      	login #use http and a cookie to log in
@@ -55,7 +56,9 @@ module OUApi
 				puts "with: #{username}"
 			else
 				puts "#{response.code} - #{response.body}: Failed to log in"
-				abort #if login fails, then abort
+				if @test_login == false
+					abort #if login fails, then abort
+				end
 			end
 		end
 		#-----------------------------------------------------------
@@ -114,8 +117,12 @@ module OUApi
 		check_cookie(response2)
 		puts "---------"
 		gadgets = JSON.parse(response.body)
-		token = gadgets.first["token"]
-		@token = token
+		if response2.code == "200"
+			token = gadgets.first["token"]
+			@token = token
+		else
+			puts "get token failed"
+		end
 	end
 	#--------------------------------------------------
 #=================================================================

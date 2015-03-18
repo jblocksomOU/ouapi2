@@ -26,7 +26,7 @@
 			"create_group":false,
 			"welcome_message":false
 			},
-		"response":{},
+		"response":[],
 		"type":"post"
 	},
 	"save":{
@@ -61,7 +61,7 @@
 				"enforce_approver":false,
 				"just_edit":false
 			},
-		"response":{},
+		"response":[],
 		"type":"puts"
 	},
 	"view":{

@@ -2,8 +2,8 @@ module OUApi
 class Superadmin
  	
 	#---grabs the asset set from OUAPi----
- 	def account
- 		OUApi.superadmin_account
+ 	def accounts
+ 		OUApi.superadmin_accounts
 	end
 	#-------------------------------------
 
@@ -12,9 +12,9 @@ class Superadmin
 	#-- If name is no privided, then the name will be a random string
 	#-- params  - a hash of create account params. see the account api set :new
 	def create_account(params={name:random_string})
-		new_account = account[:new]
-		new_account[:params].merge!(params)
-		post(new_account)
+		new_accounts = accounts[:new]
+		new_accounts[:params].merge!(params)
+		post(new_accounts)
 	end
 	#-------------------------------------
 

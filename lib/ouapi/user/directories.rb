@@ -23,7 +23,6 @@ class User
 		
 		updater = directories[:update_settings]
 		updater[:params] = update
-		puts updater
 		post(updater)
 	end
 

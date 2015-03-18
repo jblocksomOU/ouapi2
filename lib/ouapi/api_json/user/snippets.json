@@ -6,7 +6,7 @@
 			"site":null
 		},
 		"type":"post",
-		"response":{}
+		"response":[]
 	},
 	"addsnippet":{
 		"path":"/snippets/addsnippet",
@@ -19,6 +19,6 @@
 			"site":null
 		},
 		"type":"post",
-		"responose":{}
+		"responose":[]
 	}
 }

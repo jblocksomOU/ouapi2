@@ -59,7 +59,7 @@ module OUApi
 	def hash_to_querystring(params) #Hash to Query String
   	  res = ""
       params = escape_hash(params) 
-   		params.each { |key,val|
+      params.each { |key,val|
      		if val.kind_of?(Array)
        			if "#{key}" == "elements" || "#{key}" == "emails" #forms use a different format
               res << "#{key}=#{JSON.generate(val)}&" 
@@ -96,13 +96,42 @@ module OUApi
 
 
 #=== API helpers =================================
-  
-  #--------------------------------------------------------
+
+  def append_ftp_value(address,ftp_type)
+    if ftp_type == "2" || ftp_type == 2
+      return "p:#{address}"
+    elsif ftp_type == "0" || ftp_type == 0
+      return "s:#{address}"
+    else
+      return address
+    end
+  end
+#============================================================
+
+#==== spec related helpers==========================
+
+#---prep test------------------------------------------
+#-- Prepares test to be used with /spec/smoketest.rb
+#-- Get the default data for the item and merges it with the text data
+#-- parent: The head of the api (in /files/list, the files part) 
+#-- child: The child of the api (in /files/list, the list part)
+#-- directory: The location of the test data
+#-- type: user or superdmin api to test, default to user 
+#-------------------------------------------------------
+  def self.prep_test(parent,child,directory,type="user")
+    api_parent = send(parent)#get the parent data for the test
+    api = api_parent[:"#{child}"]#get the default data for the test
+    data = open_json_as_hash("#{directory}/#{type}/#{parent}/#{child}.json")#get the test data
+    tests = merge_test_with_template(api,data)#prep the data.
+  end
+#---------------------------------------------------
+
+#--------------------------------------------------------
   #-- This is method to be used for testing
   #-- The takes the target api (api), and merges it with the test data (data)
   #-- api - a single enitiy from one of the api sets
   #-- data - test data. :params is required for the data set. Use {} to test the default case. It will merge any other added params.
-  #---------------------------------------------------------
+#---------------------------------------------------------
   def self.merge_test_with_template(api,data)
       tests = {}
       data.each do |key,value|
@@ -117,25 +146,9 @@ module OUApi
       end
       tests
   end
+  #--------------------------------------------------------
 
-  def append_ftp_value(address,ftp_type)
-    if ftp_type == "2" || ftp_type == 2
-      return "p:#{address}"
-    elsif ftp_type == "0" || ftp_type == 0
-      return "s:#{address}"
-    else
-      return address
-    end
-  end
-#============================================================
-
-#prep test
-  def self.prep_test(parent,child,type="user")
-    api_parent = send(parent)
-    api = api_parent[:"#{child}"]#get the default data for the test
-    data = open_json_as_hash("#{OUApi.gem_root}/spec/test_data/#{type}/#{parent}/#{child}.json")#get the test data
-    tests = merge_test_with_template(api,data)#prep the data.
-  end
+#===================================================
 
 
 end#OUAPI

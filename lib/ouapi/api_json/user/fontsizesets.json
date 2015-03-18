@@ -6,7 +6,7 @@
 			"name":"required",
 			"sizes":[]
 			},
-		"response":{},
+		"response":[],
 		"type":"post"
 	}
 }
